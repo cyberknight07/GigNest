@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+
+    display: flex;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    background-color: darkgreen;
+    font-family: "Montserrat",sans-serif;
+    position: sticky;
+    top: 0px;
+    transition: 0.5ms all ease;
+    z-index: 999;
+
+    &.active{
+        background-color: white;
+        color: black;
+
+    }
+
+    .main-container{
+            width: 1440px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0px;
+
+            .logo{
+                display: flex;
+                align-items:center;
+                font-size: 34px;
+                font-weight: bold;
+
+                img{
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+
+
+            .actions{
+
+                display: flex;
+                gap: 24px;
+                font-weight: 500;
+                align-items: center;
+
+                .user{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+
+                    img{
+                        width: 25px;
+                        height: 25px;
+                        padding: 4px;
+                        border: 1px solid lightgrey;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    .options{
+                        position: absolute;
+                        top: 65px;
+                        right: 145px;
+                        background-color: white;
+                        border: 1px solid rgb(247, 247, 247);
+                        border-radius: 5px;
+                        display: flex;
+                        flex-direction: column;
+                        width: 200px;
+                        font-weight: 300;
+                        color: grey;
+                        
+                        
+                        hr{
+                            width: 100%;
+                            height: 0px;
+                            border: 0.5px solid rgb(247, 247, 247);
+                        }
+                        .padd{
+                            padding: 10px;
+                        }
+                        
+                    }
+                }
+
+                .action-button{}
+
+                .join-button{
+                    display: flex;
+                    font-family: "Montserrat",sans-serif;
+                    align-items: center;
+                    font-weight: 600;
+                    padding: 4px 8px 4px 8px;
+                    color: lightgreen;
+                    background-color: transparent;
+                    border: 1px solid lightgreen;
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover{
+                        background-color: green;
+                        border-color: green;
+                    }
+
+                }
+            }
+    }
+
+    hr{
+        width: 100%;
+        height: 0px;
+        border: 0.5px solid lightgrey;
+    }
+
+    .menu-container{
+        width: 1440px;
+        padding: 8px 0px;
+        display: flex;
+        font-weight: 300;
+        justify-content: space-between;
+        color: grey;
+    }
+    
+    
+
+}
+

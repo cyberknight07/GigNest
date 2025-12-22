@@ -1,0 +1,89 @@
+.message{
+    display: flex;
+    justify-content: center;
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        width: 1200px;
+        .breadcrumbs{
+            padding: 10px;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        .messages{
+            margin: 20px 0px;
+            height: 60vh;
+            display:flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y:auto;
+
+
+            .item{
+                display: flex;
+                gap: 10px;
+                padding: 10px;
+                max-width: 600px;
+                font-size: 18px;
+
+                &.owner{
+                    flex-direction: row-reverse;
+                    align-self: flex-end;
+
+                    p{
+                        border-radius: 20px 0px 20px 20px;
+                        background-color: rgb(41, 41, 179);
+                        color: white;
+                    }
+                }
+
+                img{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                }
+                p{
+                    padding: 10px;
+                    background-color: lightgrey ;
+                    color: rgb(83, 82, 82);
+                    border-radius: 0px 20px 20px 20px;
+                }
+            }
+            
+        }
+        hr{
+            height: 0px;
+            border: 0.5px solid rgb(227, 225, 225);
+            margin: 10px 0px;
+        }
+        .write{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            textarea{
+                width: 80%;
+                height: 100px;
+                padding: 10px;
+                border: 1px solid gray;
+                border-radius: 5px;
+                font-size: 18px;
+                font-weight: 600;
+                
+            }
+
+            button{
+                padding: 8px 14px;
+                border: 1px solid green;
+                border-radius: 5px;
+                background-color: green;
+                color: white;
+
+            
+            }
+        }
+    }
+}

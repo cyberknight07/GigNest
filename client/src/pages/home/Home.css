@@ -1,0 +1,56 @@
+*{
+    .home{
+        .features{
+        display: flex;
+        justify-content: center;
+        background-color: lightblue;
+        padding: 80px 0px;
+
+
+        .container{
+            width: 1300px;
+            display:flex;
+            align-items: center;
+            gap: 15px;
+
+            .item{
+                
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                &:first-child{
+                    flex: 2;
+                }
+
+                &:last-child{
+                    flex: 3;
+                }
+
+                .title{
+                display: flex;
+                gap: 10px;
+                font-weight: 600;
+                align-items: center;
+                
+                img{
+                    background-color: green;
+                    border-radius: 60%;
+                    width: 20px;
+                }
+            }
+                p{
+                    color: grey;
+                }
+
+                video{
+                    width: 700px;
+                }
+
+
+            }
+            
+        }
+    }
+    }
+}

@@ -1,0 +1,68 @@
+
+    .slider{
+        width: 800px;
+        display: flex;
+        
+    }
+
+        .c{
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            .buttonLeft{
+                padding: 24px;
+                border-radius: 100%;
+                position: absolute;
+                left: 240px;
+                z-index: 1;
+                border: none;
+                box-shadow: -2px 0px 8px 0px grey;
+                cursor: pointer;
+
+                &:hover{
+                    padding: 26px;
+                    box-shadow: -2px 0px 15px 0px grey;
+                }
+            }
+            .buttonRight{
+                padding: 24px;
+                border-radius: 100%;
+                position: absolute;
+                right: 240px;
+                z-index: 1;
+                border: none;
+                box-shadow: 2px 0px 8px 0px grey;
+                cursor: pointer;
+
+                &:hover{
+                    padding: 26px;
+                    box-shadow: 2px 0px 15px 0px grey;
+                }
+            }
+        }
+
+    .main-container{
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                transition: all .3s ease;
+            }
+
+.slide{
+    transition: transform .3s ease;
+}
+
+            /* Shrink the first slide slightly */
+.slide.shrink {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+/* Grow the last slide slightly */
+.slide.grow {
+  transform: scale(1.1);
+  opacity: 1;
+}

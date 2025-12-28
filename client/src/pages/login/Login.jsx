@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import axios from "axios"
-import "./login.css"
-import newRequest from '../../../utils/newRequest'
+import newRequest from '../../utils/apiRequest'
 import {useNavigate} from "react-router-dom";
+import {
+  LoginWrapper
+} from "./Login.styles";
 
 const Login = () => {
 
@@ -29,7 +31,7 @@ const Login = () => {
   }
 
   return (
-    <div className="login">
+    <LoginWrapper>
       <form onSubmit={handleSubmit}>
         <h1>Sign in</h1>
         <label htmlFor="">Username</label>
@@ -38,7 +40,7 @@ const Login = () => {
         <input type="password" name='password' placeholder='.........' onChange={e => setPassword(e.target.value)}/>
         <button type="submit">Login</button>
       </form>
-    </div>
+    </LoginWrapper>
   )
 }
 

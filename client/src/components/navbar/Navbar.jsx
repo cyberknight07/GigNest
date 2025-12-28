@@ -1,90 +1,159 @@
-import React, { useEffect, useState } from 'react'
-import "./navbar.css"
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import avatar from "/ReactApp/Internshala/GIgnest/client/src/assets/avatar.png"
-import logo from "/ReactApp/Internshala/GIgnest/client/src/assets/logo.svg"
-import newRequest from '../../../utils/newRequest';
+// Navbar.jsx
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import styled, { css } from "styled-components";
+import newRequest from "../../utils/apiRequest";
+import {
+  NavbarContainer,
+  MainContainer,
+  Logo,
+  Actions,
+  ActionButton,
+  JoinButton,
+  User,
+  UserImage,
+  Options,
+  OptionLink,
+  Hr,
+  Line,
+  MenuContainer,
+  MenuLink,
+} from "./Navbar.styles"; // Import styled components from separate file
+
 
 const Navbar = () => {
-    const [scrollFlag, setScrollFlag] = useState(false);
-    const [open, setOpen] = useState(false);
-    const {pathname} = useLocation();
-    const navigate = useNavigate();
-    const isActive = () => {
-        window.scrollY > 0 ? setScrollFlag(true) : setScrollFlag(false);
+  const [scrollFlag, setScrollFlag] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const isActive = () => {
+    window.scrollY > 0 ? setScrollFlag(true) : setScrollFlag(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", isActive);
+    return () => {
+      window.removeEventListener("scroll", isActive);
     };
+  }, []);
 
-    useEffect(() => {
-        window.addEventListener('scroll', isActive);
-        // Additional cleanup function to add cleanup functions.
-        return () => {
-            window.removeEventListener('scroll', isActive);
-        }
-    }, [])
+  // Close dropdown if clicking outside user menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".user")) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    const handleLogout = async (e) => {
-        e.preventDefault();
-        try{
-            await newRequest.post("/auth/logout");
-            localStorage.setItem("currentUser", null);
-            navigate("/");
-        }catch(err){
-            console.log(err)
-        }
-    } 
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await newRequest.post("/auth/logout");
+      localStorage.setItem("currentUser", null);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <div className={ scrollFlag || pathname !== "/" ? "navbar active" : "navbar" }>
-        <div className='main-container'>
-            <div className='logo'>
-                <Link className = "link" to = "/">
-                <span>Gignest</span>
-                <span><img className= "logo-image" src={logo}/></span>
-                </Link>
-            </div>
-            <div className='actions'>
-                <Link className='link'><span className='action-button'>Business</span></Link>
-                <Link to= "/gigs" className='link'><span className='action-button'>Explore </span></Link>
-                {console.log(currentUser.body?.isSeller)}
-                {!currentUser.body?.isSeller && <span className='action-button'>Become a seller</span>}
-                {!currentUser && <Link to= "/signin" className='link'><span className='action-button'>Sign In</span></Link>}
-                {!currentUser && <Link to= "/signup" className='link'><button className='join-button'>Join</button></Link>}
-                {currentUser && (
-                    <div className='user' onClick={()=> {setOpen(!open)}}>
-                        <img src={currentUser.img || avatar} alt="" />
-                        <span>{currentUser?.username}</span>
-                        {open && <div className="options">
-                            {currentUser?.isSeller && (
-                                <>
-                                    <Link className = "link padd" to="/mygigs">Gigs</Link>
-                                    <hr/>
-                                    <Link className = "link padd" to="/add">Add New Gig</Link>
-                                    <hr/>
-                                </>
-                            )}
-                            <Link className = "link padd" to="/orders">Orders</Link>
-                            <Link className = "link padd" to="/messages">Messages</Link>
-                            <Link className = "link padd" onClick={handleLogout}>Log out</Link>
-                        </div>}
-                    </div>
-                )}
-            </div>
-        </div>
-        {(scrollFlag || pathname !== "/") && (
-            <>
-                <hr className='line'/>
-                <div className='menu-container'>
-                        <Link className = "link padd" to="/">AI</Link>
-                        <Link className = "link padd" to="/">Engineering</Link>
-                        <Link className = "link padd" to="/">Web Designing</Link>
-                </div>
-                <hr className='line'/>
-            </>
-        )}
-    </div>
-  )
-}
+    <NavbarContainer active={scrollFlag || pathname !== "/"}>
+      <MainContainer>
+        <Logo>
+          <Link className="link" to="/">
+            <span>Gignest</span>
+            <span>
+              <img className="logo-image" src="/assets/logo.svg" alt="logo" />
+            </span>
+          </Link>
+        </Logo>
 
-export default Navbar
+        <Actions>
+          {/* Added 'to' props for all Links */}
+          <Link to="/business" className="link">
+            <ActionButton>Business</ActionButton>
+          </Link>
+
+          <Link to="/gigs" className="link">
+            <ActionButton>Explore</ActionButton>
+          </Link>
+
+          {!currentUser?.body?.isSeller && (
+            <Link to="/become-seller" className="link">
+              <ActionButton>Become a seller</ActionButton>
+            </Link>
+          )}
+
+          {!currentUser && (
+            <Link to="/signin" className="link">
+              <ActionButton>Sign In</ActionButton>
+            </Link>
+          )}
+
+          {!currentUser && (
+            <Link to="/signup" className="link">
+              <JoinButton>Join</JoinButton>
+            </Link>
+          )}
+
+          {currentUser && (
+            <User
+              className="user"
+              onClick={() => setOpen(!open)}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : "false"}
+            >
+              <UserImage
+                src={currentUser.img || "/assets/avatar.png"}
+                alt="user avatar"
+              />
+              <span>{currentUser?.username}</span>
+
+              {open && (
+                <Options>
+                  {currentUser?.isSeller && (
+                    <>
+                      <OptionLink to="/mygigs">Gigs</OptionLink>
+                      <Hr />
+                      <OptionLink to="/add">Add New Gig</OptionLink>
+                      <Hr />
+                    </>
+                  )}
+                  <OptionLink to="/orders">Orders</OptionLink>
+                  <OptionLink to="/messages">Messages</OptionLink>
+                  <OptionLink to="/mygigs">My Nest</OptionLink>
+                  <OptionLink to="/" onClick={handleLogout}>
+                    Log out
+                  </OptionLink>
+                </Options>
+              )}
+            </User>
+          )}
+        </Actions>
+      </MainContainer>
+
+      {(scrollFlag || pathname !== "/") && (
+        <>
+          <Line />
+          <MenuContainer>
+            <MenuLink to="/">AI</MenuLink>
+            <MenuLink to="/">Engineering</MenuLink>
+            <MenuLink to="/">Web Designing</MenuLink>
+          </MenuContainer>
+          <Line />
+        </>
+      )}
+    </NavbarContainer>
+  );
+};
+
+export default Navbar;
+

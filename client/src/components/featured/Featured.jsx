@@ -1,35 +1,47 @@
-import React from 'react'
-import "./Feature.css"
+import React from "react";
+import {
+  FeaturedWrapper,
+  Container,
+  Left,
+  Title,
+  Search,
+  SearchText,
+  SearchButton,
+  Popular,
+  Right
+} from "./Featured.styles";
 
 const Featured = () => {
   return (
-    <div className='featured'>
-        <div className='container'>
-            <div className="left">
-                <h1>
-                    Find the perfect <i>freelance</i> services for your business.
-                </h1>
-                <div className="search">
-                    <span className="search-text">
-                        <img src='src/assets/avatar.png'/>
-                        <input type='text' name='search' placeholder='search'/>
-                    </span>
-                    <button>Search</button>
-                </div>
-                <div className="popular-results">
-                    <text>Popular:</text>
-                    <button>Hero</button>
-                    <button>Villan </button>
-                    <button>Rowdy</button>
-                </div>
-            </div>
-            <div className="right">
-                <img src='src/assets/avatar.png' className='banner-image'/>
-            </div>
-        </div>
+    <FeaturedWrapper>
+      <Container>
+        <Left>
+          <Title>
+            Find the perfect <i>freelance</i> services for your business.
+          </Title>
 
-    </div>
-  )
-}
+          <Search>
+            <SearchText>
+              <img src="/src/assets/avatar.png" alt="search icon" />
+              <input type="text" placeholder="Search" />
+            </SearchText>
+            <SearchButton>Search</SearchButton>
+          </Search>
 
-export default Featured
+          <Popular>
+            <span>Popular:</span>
+            <button>Hero</button>
+            <button>Villain</button>
+            <button>Rowdy</button>
+          </Popular>
+        </Left>
+
+        <Right>
+          <img src="assets/avatar.png" alt="banner" />
+        </Right>
+      </Container>
+    </FeaturedWrapper>
+  );
+};
+
+export default Featured;

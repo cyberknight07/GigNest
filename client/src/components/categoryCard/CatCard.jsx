@@ -1,17 +1,17 @@
-import React from 'react'
-import "./catcard.css"
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { CatCardContainer, Desc, Title } from "./CatCard.styles";
 
-const CatCard = ({item}) => {
+const CatCard = ({ item }) => {
   return (
-    <Link to= "/gigs?cat=design" className='link'>
-        <div className='catcard'>
-        <img src={item.img}/>
-        <span className='desc'>{item.desc}</span>
-        <span className='title'>{item.title}</span>
-    </div>
+    <Link to="/gigs?cat=design" className="link">
+      <CatCardContainer>
+        <img src={item.img} alt={item.title} />
+        <Desc>{item.desc}</Desc>
+        <Title>{item.title}</Title>
+      </CatCardContainer>
     </Link>
-  )
-}
+  );
+};
 
-export default CatCard
+export default CatCard;

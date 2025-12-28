@@ -1,50 +1,74 @@
-import React, { useState } from 'react'
-import CatCard from '../categoryCard/CatCard'
-import "./Slide.css"
+import React, { useState, useEffect } from "react";
+import CatCard from "../categoryCard/CatCard";
+import {
+  SliderContainer,
+  ControlsWrapper,
+  ButtonLeft,
+  ButtonRight,
+  MainContainer,
+  SlideItem,
+} from "./Slide.styles";
 
-
-
-const Slide = ({data}) => {
-
+const Slide = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCount = 5; // number of images to show
+  const [visibleCount, setVisibleCount] = useState(5);
 
+  // Update visibleCount based on screen width
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      const width = window.innerWidth;
+      if (width < 480) setVisibleCount(1);
+      else if (width < 768) setVisibleCount(3);
+      else setVisibleCount(5);
+    };
+
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
+
+  // Calculate visible slides based on currentIndex and visibleCount
   const visibleSlides = [];
   for (let i = 0; i < visibleCount; i++) {
     visibleSlides.push(data[(currentIndex + i) % data.length]);
   }
-  // Move to next slide
+
+  // Handlers to move slides
   const next = () => {
     setCurrentIndex((prev) => (prev + 1) % data.length);
   };
 
-  // Move to previous slide
   const prev = () => {
-    setCurrentIndex((prev) =>
-      (prev - 1 + data.length) % data.length
-    );
+    setCurrentIndex((prev) => (prev - 1 + data.length) % data.length);
   };
 
-  // Get 5 images based on currentIndex
-    
-
-
-  
   return (
-    <div className=".slider">
-        
-          <div className="c">
-              <button className='buttonLeft' onClick={prev}>left</button>
-              <div className="main-container" >
-                  {visibleSlides.map((item, idx) => (
-                  <CatCard key= {idx} item={item} className={`slide ${idx === 0 ? "shrink" : ""} ${idx === visibleCount - 1 ? "grow" : ""}`}/>
-                  ))}
-              </div>
-              <button className='buttonRight' onClick={next}>right</button>
-          </div>
-      
-    </div>
-  )
-}
+    <SliderContainer>
+      <ControlsWrapper>
+        <ButtonLeft onClick={prev} aria-label="Previous slide">
+          &#8592;
+        </ButtonLeft>
 
-export default Slide
+        <MainContainer visibleCount={visibleCount}>
+          {visibleSlides.map((item, idx) => (
+            <SlideItem
+              key={idx}
+              className={`${idx === 0 ? "shrink" : ""} ${
+                idx === visibleCount - 1 ? "grow" : ""
+              }`}
+            >
+              <CatCard item={item} />
+            </SlideItem>
+          ))}
+        </MainContainer>
+
+        <ButtonRight onClick={next} aria-label="Next slide">
+          &#8594;
+        </ButtonRight>
+      </ControlsWrapper>
+    </SliderContainer>
+  );
+};
+
+export default Slide;

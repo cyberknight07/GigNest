@@ -1,9 +1,17 @@
 import React from 'react'
-import "./register.css"
+import "./Register.styles.js"
 import { useState } from 'react';
 import axios from "axios"
-import upload from '../../../utils/upload';
-import newRequest from "../../../utils/newRequest"
+import upload from '../../utils/uploadData.js';
+import newRequest from "../../utils/apiRequest.js"
+import {
+    RegisterWrapper,
+    RegisterForm,
+    LeftRightWrapper,
+    Container,
+    Checkbox
+
+} from "./Register.styles.js"
 
 const Register = () => {
 
@@ -43,6 +51,8 @@ const Register = () => {
         img:url,
       })
 
+      console.log("User Registered" + user.username);
+
     } catch (error) {
       console.log(error)
     }
@@ -51,15 +61,12 @@ const Register = () => {
   console.log(user);
 
 
-
-
-
   return (
-    <div className="register">
-      <div className="container">
+    <RegisterWrapper>
+      <Container>
         <h1>Join Us and Build Your Nest</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="left">
+        <RegisterForm onSubmit={handleSubmit}>
+          <LeftRightWrapper>
             <h1>Create a new account</h1>
             <label htmlFor="username">Username</label>
             <input type='text' placeholder='Tikhjfkf' name='username' onChange={handleChange}/>
@@ -72,19 +79,19 @@ const Register = () => {
             <label htmlFor="description">Description</label>
             <textarea name="desc" placeholder='Write description' id="" cols="20" rows="16" onChange={handleChange}></textarea>
             <button type='submit'>Send</button>
-          </div>
-          <div className="right">
+          </LeftRightWrapper>
+          <LeftRightWrapper>
             <h1>I want to become a seller</h1>
             <label htmlFor="country">Country</label>
             <input type='country' placeholder='en' name='country' onChange={handleChange}/>
-            <label htmlFor="seller">Activate a seller account</label>
-            <input type='checkbox' name='seller' placeholder='e.g., Tikhjfkf' onChange={hangleSeller}/>
+            <span><label htmlFor="seller">Activate a seller account</label>
+            <Checkbox type='checkbox' name='seller' onChange={hangleSeller}/></span>
             {/* <label htmlFor="number">Phone number</label>
             <input type='number' placeholder='2354465' onChange={handleChange} /> */}
-        </div>
-        </form>
-      </div>
-    </div>
+        </LeftRightWrapper>
+        </RegisterForm>
+      </Container>
+    </RegisterWrapper>
   )
 }
 

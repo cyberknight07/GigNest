@@ -1,32 +1,43 @@
 import React from 'react'
-import "./gigcard.css"
+import {
+GigCardWrapper,
+GigImage,
+InfoDiv,
+UserSpan,
+HorizontalLine,
+TitleParagraph,
+StarsSpan,
+DetailsWrapper,
+PriceDiv,
+} from  "./GigCard.styles.js"
 import { Link } from 'react-router-dom'
+
 
 const GigCard = ({item}) => {
   return (
     <Link to= "/gig/:id" className='link'>
-        <div className='gigcard'>
-        <img src={item.img} className='gig-image'/>
-        <div className='info'>
-            <span className='user'>
+        <GigCardWrapper>
+        <GigImage src={item.img}/>
+        <InfoDiv>
+            <UserSpan>
                 <img src={item.pp} className='pp' />
                 <text>{item.username}</text>
-            </span>
-            <p>{item.desc}</p>
-            <span className='stars'>
+            </UserSpan>
+            <TitleParagraph>{item.desc}</TitleParagraph>
+            <StarsSpan>
                 <img src="./public/imgs/star.png"  />
                 {item.star}
-            </span>
-        </div>
-        <hr/>
-        <div className='details'>
+            </StarsSpan>
+        </InfoDiv>
+        <HorizontalLine/>
+        <DetailsWrapper>
             <img src="./public/imgs/heart.png" />
-            <div className="price">
+            <PriceDiv>
                 <p>Starting at</p>
                 <p>${item.price}</p>
-            </div>
-        </div>
-    </div>
+            </PriceDiv>
+        </DetailsWrapper>
+    </GigCardWrapper>
     </Link>
   )
 }

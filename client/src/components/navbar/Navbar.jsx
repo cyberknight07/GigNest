@@ -1,7 +1,6 @@
 // Navbar.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import styled, { css } from "styled-components";
 import newRequest from "../../utils/apiRequest";
 import {
   NavbarContainer,
@@ -26,6 +25,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  
 
   const isActive = () => {
     window.scrollY > 0 ? setScrollFlag(true) : setScrollFlag(false);
@@ -51,7 +52,6 @@ const Navbar = () => {
     };
   }, []);
 
-  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -63,6 +63,8 @@ const Navbar = () => {
       console.log(err);
     }
   };
+
+  // Backend User Fetch
 
   return (
     <NavbarContainer active={scrollFlag || pathname !== "/"}>
@@ -112,24 +114,25 @@ const Navbar = () => {
               aria-expanded={open ? "true" : "false"}
             >
               <UserImage
-                src={currentUser.img || "/assets/avatar.png"}
+                src={currentUser.body.img || "/assets/avatar.png"}
                 alt="user avatar"
               />
-              <span>{currentUser?.username}</span>
+              <span>{currentUser.body.username}</span>
 
               {open && (
                 <Options>
-                  {currentUser?.isSeller && (
+                  {currentUser.body.isSeller && (
                     <>
-                      <OptionLink to="/mygigs">Gigs</OptionLink>
+                      <OptionLink to="/mygigs">My Gigs</OptionLink>
                       <Hr />
                       <OptionLink to="/add">Add New Gig</OptionLink>
                       <Hr />
                     </>
                   )}
                   <OptionLink to="/orders">Orders</OptionLink>
+                  <Hr/>
                   <OptionLink to="/messages">Messages</OptionLink>
-                  <OptionLink to="/mygigs">My Nest</OptionLink>
+                  <Hr/>
                   <OptionLink to="/" onClick={handleLogout}>
                     Log out
                   </OptionLink>

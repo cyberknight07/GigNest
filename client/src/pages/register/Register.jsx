@@ -12,6 +12,7 @@ import {
     Checkbox
 
 } from "./Register.styles.js"
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
@@ -25,6 +26,8 @@ const Register = () => {
     isSeller: false,
     desc: "",
   });
+
+  const navigate = useNavigate();
 
   
   
@@ -45,20 +48,19 @@ const Register = () => {
 
     const url = await upload(file);
     try {
-      
+      console.log(url);
       await newRequest.post("/auth/register", {
         ...user,
         img:url,
       })
 
       console.log("User Registered" + user.username);
-
+      navigate("/signin");
     } catch (error) {
       console.log(error)
     }
   }
   
-  console.log(user);
 
 
   return (

@@ -27,6 +27,10 @@ export const HeaderText = styled.p`
   margin: 0;
 `;
 
+export const SubHeaderText = styled.span`
+  cursor: pointer; 
+`;
+
 export const FilterHeader = styled.div`
   display: flex;
   justify-content: space-between;

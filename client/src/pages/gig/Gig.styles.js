@@ -65,15 +65,17 @@ export const Stars = styled.div`
 export const Scrollbar = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 20px;
+  padding: 0px 16px 0px 16px; //top, right, bottom, left
+`;
 
-  img {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-  }
+export const Image = styled.img`
+    cursor: ${({button}) => (button ? "pointer" : "auto")};
+    width: ${({button}) => (button ? "40px" : "360px")};
+    height: ${({button}) => {button ? "40px": "360px"}};
+    object-fit: cover;
 `;
 
 export const AboutTitle = styled.span`

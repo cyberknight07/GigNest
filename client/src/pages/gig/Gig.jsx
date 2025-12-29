@@ -1,4 +1,7 @@
+// How data flow from GigCard to proper Gig Page
+
 import React from "react";
+import { useState } from "react";
 import {
   GigWrapper,
   Container,
@@ -12,9 +15,19 @@ import {
   Breadcrumb,
   AboutTitle,
   AboutText,
+  Image
 } from "./Gig.styles";
 
 const Gig = () => {
+
+  const [index, setIndex] = useState(0);
+  const images = [
+    "/assets/avatar.png",
+    "/assets/man.png",
+    "/assets/google.png",
+  ];
+
+
   return (
     <GigWrapper>
       <Container>
@@ -31,7 +44,9 @@ const Gig = () => {
           </UserInfo>
 
           <Scrollbar>
-            <img src="/assets/avatar.png" alt="Avatar" />
+            <Image button src="/assets/back.png" alt="back" onClick={() => {(index === 0) ? setIndex(images.length-1): setIndex(index-1)}  }/>
+            <Image src={images[index]} alt={index} />
+            <Image button src="/assets/next.png" alt="next" onClick={() => {(index === images.length-1) ? setIndex(0): setIndex(index+1)} }/>
           </Scrollbar>
 
           <AboutTitle>About This Gig</AboutTitle>
@@ -49,7 +64,7 @@ const Gig = () => {
             <span>Hello</span>
             <span>Hello</span>
             <span>Hello</span>
-            <span>Hello</span>
+            <button>Purchase</button>
           </BillContainer>
         </RightSection>
       </Container>

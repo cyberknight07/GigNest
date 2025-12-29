@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { gigs } from "../../data";
 import GigCard from "../../components/gigCard/GigCard.jsx";
 import {
@@ -18,17 +18,27 @@ import {
   DropdownItem,
   DropdownDivider,
   GigList,
+  SubHeaderText,
 } from "./Gigs.styles";
+import { useLocation } from "react-router-dom";
 
 const Gigs = () => {
   const sortingList = ["Best Selling", "High to Low", "Low to High"];
   const [sorting, setSorting] = useState(sortingList[0]);
   const [active, setActive] = useState(false);
+  const minRef = useRef();
+  const maxRef = useRef();
+  const {search} = useLocation();
+
+  const ApplyFilter = () => {
+    console.log(search) //"?cat=Mountain%20Adventure"
+    console.log("Value " + minRef + "Value " + maxRef);
+  }
 
   return (
     <GigsContainer>
       <Container>
-        <HeaderText as="p">Gignest - Graphics & Design</HeaderText>
+        <HeaderText as="p" small>Gignest -{`>`} <SubHeaderText>{search.split('=')[1]}</SubHeaderText></HeaderText>
         <HeaderText as="h1">AI Artists</HeaderText>
         <HeaderText as="p" small>
           Explore the boundaries of art and technology with Gignest AI Artists
@@ -37,9 +47,9 @@ const Gigs = () => {
         <FilterHeader>
           <FilterSection>
             <FilterLabel>Budget</FilterLabel>
-            <FilterInput type="text" name="min" placeholder="min" />
-            <FilterInput type="text" name="max" placeholder="max" />
-            <FilterButton>Apply</FilterButton>
+            <FilterInput ref={minRef} type="text" name="min" placeholder="min"/>
+            <FilterInput ref={maxRef} type="text" name="max" placeholder="max" />
+            <FilterButton onClick={ApplyFilter}>Apply</FilterButton>
           </FilterSection>
 
           <SortingSection>

@@ -50,7 +50,7 @@ export const logout = (req, res) => {
 
     res.clearCookie("accessToken", {
         sameSite: "none",
-        secure: true,
+        secure: false, // It is false because I am working on HTTP only (localhost). Set to "TRUE" if working on HTTPS.
     }).status(200).json({message: "It Works on api/user/test"})
 }
 

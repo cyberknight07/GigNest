@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/apiRequest";
@@ -19,14 +18,12 @@ import {
   MenuLink,
 } from "./Navbar.styles"; // Import styled components from separate file
 
-
 const Navbar = () => {
   const [scrollFlag, setScrollFlag] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  
 
   const isActive = () => {
     window.scrollY > 0 ? setScrollFlag(true) : setScrollFlag(false);
@@ -52,7 +49,6 @@ const Navbar = () => {
     };
   }, []);
 
-
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -64,7 +60,6 @@ const Navbar = () => {
     }
   };
 
-  // Backend User Fetch
 
   return (
     <NavbarContainer active={scrollFlag || pathname !== "/"}>
@@ -73,7 +68,7 @@ const Navbar = () => {
           <Link className="link" to="/">
             <span>Gignest</span>
             <span>
-              <img className="logo-image" src="/assets/logo.svg" alt="logo" />
+              <img className="logo-image" src="assets/logo.svg" alt="logo" />
             </span>
           </Link>
         </Logo>
@@ -114,7 +109,7 @@ const Navbar = () => {
               aria-expanded={open ? "true" : "false"}
             >
               <UserImage
-                src={currentUser.body.img || "/assets/avatar.png"}
+                src={currentUser.body.img || "assets/avatar.png"}
                 alt="user avatar"
               />
               <span>{currentUser.body.username}</span>
@@ -130,9 +125,9 @@ const Navbar = () => {
                     </>
                   )}
                   <OptionLink to="/orders">Orders</OptionLink>
-                  <Hr/>
+                  <Hr />
                   <OptionLink to="/messages">Messages</OptionLink>
-                  <Hr/>
+                  <Hr />
                   <OptionLink to="/" onClick={handleLogout}>
                     Log out
                   </OptionLink>
@@ -159,4 +154,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

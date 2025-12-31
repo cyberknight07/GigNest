@@ -8,7 +8,7 @@ import {
   SearchText,
   SearchButton,
   Popular,
-  Right
+  Right,
 } from "./Featured.styles";
 
 const Featured = () => {
@@ -22,7 +22,7 @@ const Featured = () => {
 
           <Search>
             <SearchText>
-              <img src="/src/assets/avatar.png" alt="search icon" />
+              <img src="imgs/search.svg" alt="search icon" />
               <input type="text" placeholder="Search" />
             </SearchText>
             <SearchButton>Search</SearchButton>
@@ -37,7 +37,7 @@ const Featured = () => {
         </Left>
 
         <Right>
-          <img src="assets/avatar.png" alt="banner" />
+          <img src="assets/avatar.svg" alt="banner" />
         </Right>
       </Container>
     </FeaturedWrapper>

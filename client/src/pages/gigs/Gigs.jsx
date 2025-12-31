@@ -28,17 +28,19 @@ const Gigs = () => {
   const [active, setActive] = useState(false);
   const minRef = useRef();
   const maxRef = useRef();
-  const {search} = useLocation();
+  const { search } = useLocation();
 
   const ApplyFilter = () => {
-    console.log(search) //"?cat=Mountain%20Adventure"
+    console.log(search); //"?cat=Mountain%20Adventure"
     console.log("Value " + minRef + "Value " + maxRef);
-  }
+  };
 
   return (
     <GigsContainer>
       <Container>
-        <HeaderText as="p" small>Gignest -{`>`} <SubHeaderText>{search.split('=')[1]}</SubHeaderText></HeaderText>
+        <HeaderText as="p" small>
+          Gignest -{`>`} <SubHeaderText>{search.split("=")[1]}</SubHeaderText>
+        </HeaderText>
         <HeaderText as="h1">AI Artists</HeaderText>
         <HeaderText as="p" small>
           Explore the boundaries of art and technology with Gignest AI Artists
@@ -47,8 +49,18 @@ const Gigs = () => {
         <FilterHeader>
           <FilterSection>
             <FilterLabel>Budget</FilterLabel>
-            <FilterInput ref={minRef} type="text" name="min" placeholder="min"/>
-            <FilterInput ref={maxRef} type="text" name="max" placeholder="max" />
+            <FilterInput
+              ref={minRef}
+              type="text"
+              name="min"
+              placeholder="min"
+            />
+            <FilterInput
+              ref={maxRef}
+              type="text"
+              name="max"
+              placeholder="max"
+            />
             <FilterButton onClick={ApplyFilter}>Apply</FilterButton>
           </FilterSection>
 

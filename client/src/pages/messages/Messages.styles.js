@@ -1,9 +1,4 @@
 
-// MessagesWrapper
-// Container
-// Heading
-// TabularWrapper
-
 import styled from "styled-components";
 
 export const MessagesWrapper = styled.div`
@@ -58,73 +53,6 @@ export const TabularWrapper = styled.table`
                     .active{
                         background-color: rgb(224, 242, 237);
                     }
-
-                }
-            }
                 
 `;
 
-
-
-// .messages{
-    // display: flex;
-    // justify-content: center;
-
-//     .container{
-        // width: 1440px;
-        // padding: 50px 0px;
-
-        
-
-//         table{
-                // width: 100%;
-                // border: none;
-
-                // button{
-                // padding: 12px;
-                // background-color: green;
-                // color: white;
-                // border: 1px solid green;
-                // border-radius: 2px;
-                // cursor: pointer;
-                // }
-                
-                
-                // tr{
-                //     height: 50px;
-                
-
-                //     th{
-                //         text-align: left;
-                //         padding: 14px;
-
-                //     }
-
-                //     td{
-                //         padding: 14px;
-                //         font-weight: 500;
-                //         color: grey;
-
-                //         &:first-child{
-                //             font-weight: 700;
-                //             color: black;
-                //         }
-
-                //         &:nth-child(3){
-                //             font-weight: 700;
-                //             color: black;
-
-                //         }
-                //     }
-
-                //     }
-
-                //     .active{
-                //         background-color: rgb(224, 242, 237);
-                //     }
-
-                // }
-                
-//             }
-            
-//     }

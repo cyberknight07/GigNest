@@ -34,10 +34,10 @@ app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
     const errorMessage = err.message || "Something went wrong.";
 
-    res.status(errorStatus).send(errorMessage);
+    res.status(errorStatus).json({error: errorMessage});
 })
 
-app.get('/', (req, res) => {res.send("It is working")});
+app.get('/', (req, res) => {res.json({message: "It is working"})});
 
 // Listening on port 3000
 app.listen(3000, async (req, res) => {

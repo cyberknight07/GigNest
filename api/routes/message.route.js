@@ -4,7 +4,7 @@ import { createMessage, getMessages } from "../controllers/messages.controller.j
 
 const router = Router();
 
-router.post("/createmessage", verifyToken, createMessage);
+router.post("/createMessage", verifyToken, createMessage);
 router.get("/:conversationId", verifyToken, getMessages);
 
 export default router;

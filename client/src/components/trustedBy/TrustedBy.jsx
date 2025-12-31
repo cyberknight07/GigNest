@@ -7,11 +7,11 @@ import {
 } from "./TrustedBy.styles";
 
 const logos = [
-  "./imgs/google.png",
-  "./imgs/google.png",
-  "./imgs/google.png",
-  "./imgs/google.png",
-  "./imgs/google.png",
+  "imgs/pinterest.svg",
+  "imgs/linkedin.svg",
+  "imgs/google1.svg",
+  "imgs/twitter.svg",
+  "imgs/facebook.svg",
 ];
 
 const TrustedBy = () => {

@@ -57,35 +57,6 @@ export const LeftRightWrapper = styled.div`
                 }
 `;
 
-// export const Checkbox = styled.input.attrs({type:"checkbox"})`
-//   width: 32px;
-//   height: 32px;
-//   border-radius: 50%;
-//   border: 3px solid #ccc;
-//   appearance: none;
-//   -webkit-appearance: none;
-//   outline: none;
-//   cursor: pointer;
-//   display: grid;
-//   place-content: center;
-//   background-color: white;
-
-//   &::after {
-//     content: "";
-//     width: 18px;
-//     height: 18px;
-//     border-radius: 50%;
-//     background-color: red;
-//     transform: scale(0);
-//     transition: transform 0.15s ease-in-out;
-    
-//   }
-
-//   &:checked::after {
-//     transform: scale(1);
-//   }
-// `;
-
 
 export const Checkbox = styled.input.attrs({ type: "checkbox" })`
   width: 34px;
@@ -143,58 +114,3 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
       0 2px 6px rgba(0, 0, 0, 0.2);
   }
 `;
-
-
-
-// .register{
-//     display: flex;
-//     justify-content: center;
-
-//     .container{
-//         width: 1400px;
-//         padding: 30px 0px;
-
-//         h1{
-//             color: grey;
-//             font-weight: 500;
-//             margin: 30px 0px;
-//         }
-
-//             form{
-//                 display: flex;
-//                 justify-content: space-between;
-//                 gap: 50px;
-//             }
-
-//             .left,
-//             .right{
-//                 display: flex;
-//                 flex-direction: column;
-//                 gap: 10px;
-//                 flex: 5;
-
-
-//                 label{
-//                     color: gray;
-//                     font-size: 18px;
-//                 }
-
-//                 input,select,textarea{
-//                     background: rgb(241, 245, 245);
-//                     border:none;
-//                     padding: 20px;
-//                 }
-                
-//                 button{
-//                     border: none;
-//                     padding: 20px;
-//                     background-color: green;
-//                     color: white;
-//                     font-weight: 500;   
-//                     cursor: pointer;
-//                     font-size: 20px;
-//                 }
-//             }
-
-//         }
-//     }

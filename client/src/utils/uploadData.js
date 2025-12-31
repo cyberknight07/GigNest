@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
+import {CLOUDINARY_URL} from "./config.js";
 
-const CLOUDINARY_URL = import.meta.env.VITE_APP_CLOUDINARY_URL;
 
 const upload = async (file) => {
     const data = new FormData();

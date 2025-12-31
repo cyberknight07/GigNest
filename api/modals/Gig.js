@@ -34,7 +34,7 @@ const gigSchema = new mongoose.Schema({
         required: true,
     },
     images: {
-        type: {String},
+        type: [String],
         required: false,
     },
     shortDesc:  {
@@ -50,7 +50,7 @@ const gigSchema = new mongoose.Schema({
         required: true,
     },
     features:  {
-        type: {String},
+        type: [String],
         required: false,
     },
     sales: {

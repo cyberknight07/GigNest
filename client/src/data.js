@@ -3,19 +3,19 @@ export const data =
 [
   {
     "id": 1,
-    "title": "Modern Office Workspace",
+    "title": "Graphics",
     "shortDescription": "A clean and minimal office setup for productivity.",
     "img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36"
   },
   {
     "id": 2,
-    "title": "Mountain Adventure",
+    "title": "Design",
     "shortDescription": "Experience the thrill of hiking in the mountains.",
     "img": "https://images.unsplash.com/photo-1501785888041-af3ef285b470"
   },
   {
     "id": 3,
-    "title": "Fresh Coffee",
+    "title": "Website",
     "shortDescription": "Start your day with a cup of freshly brewed coffee.",
     "img": "https://images.unsplash.com/photo-1501785888041-af3ef285b470"
   },

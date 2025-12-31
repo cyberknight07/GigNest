@@ -1,10 +1,9 @@
-import Conversations from '../modals/conversation';
+import Conversations from '../modals/conversation.js';
 import Messages from '../modals/messages.js'
 
 export const createMessage = async (req, res, next) => {
    
     const newMessage = new Messages({
-        consversationId: req.body.conversationId,
         userId: req.userId,
         desc: req.body.desc,
     });

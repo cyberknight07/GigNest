@@ -32,6 +32,7 @@ export const login = async (req, res, next) => {
             id: user._id,
             isSeller: user.isSeller,
             },
+            
             process.env.JWT_KEY
         );
         const {password, ...info} = user._doc;
@@ -49,7 +50,7 @@ export const logout = (req, res) => {
 
     res.clearCookie("accessToken", {
         sameSite: "none",
-        secure: true,
+        secure: process.env.SECURE_COOKIES, 
     }).status(200).json({message: "It Works on api/user/test"})
 }
 

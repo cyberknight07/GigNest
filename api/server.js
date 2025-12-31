@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import gigRouter from "./routes/gig.route.js";
 import reviewRouter from "./routes/review.route.js";
 import orderRouter from "./routes/order.route.js";
+import messageRouter from "./routes/message.route.js";
 import conversationRouter from "./routes/conversation.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -25,7 +26,7 @@ app.use("/api/gigs", gigRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/conversations", conversationRouter);
-
+app.use("/api/messages", messageRouter);
 
 
 // Error Middleware
@@ -33,9 +34,10 @@ app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
     const errorMessage = err.message || "Something went wrong.";
 
-    res.status(errorStatus).send(errorMessage);
+    res.status(errorStatus).json({error: errorMessage});
 })
 
+app.get('/', (req, res) => {res.json({message: "It is working"})});
 
 // Listening on port 3000
 app.listen(3000, async (req, res) => {

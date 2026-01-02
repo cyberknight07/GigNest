@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../modals/User.js";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { createError } from "../utils/createError.js";
 
 export const register = async (req, res, next) => {
@@ -13,7 +12,7 @@ export const register = async (req, res, next) => {
         });
 
         await newUser.save();
-        res.status(201).send("New User Is Created.");
+        res.status(201).json({message: "New User Is Created."});
     } catch (e) {
         next(createError(e.status, e.message));
     }

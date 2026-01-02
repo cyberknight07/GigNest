@@ -19,7 +19,7 @@ export const createMessage = async (req, res, next) => {
 
             }
         }, {new: true});
-        res.status(201).send(savedMessage);
+        res.status(201).json({message: "Review created successfully", data: sendMes});;
 
     } catch(e){next(e);}
 }

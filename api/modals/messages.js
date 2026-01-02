@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const MessageSchema = new mongoose.Schema({
     id: {
@@ -17,7 +17,6 @@ const MessageSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-
 },
     {timestamps: true}
 );

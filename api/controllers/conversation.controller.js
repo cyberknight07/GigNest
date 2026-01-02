@@ -14,7 +14,7 @@ export const createConversation = async (req, res, next) => {
     try{
 
         const savedConversation = await newConversation.save();
-        res.status(201).send(savedConversation);
+        res.status(201).json({message: "Conversation Created Successfully", data: savedConversation});
 
     } catch(e){ next(e)}
 }
@@ -31,10 +31,10 @@ export const updateConversation = async (req, res, next) => {
                     ...(req.isSeller ? {readBySeller: true} : {readByBuyer: true})
                 },
             },
-            { new: true}    
+            { new: true }    
         );
 
-        res.status(200).send(updatedConversation);
+        res.status(200).json({message: "Conversation Updated Successfully", data: updatedConversation});
 
     }catch(e) { next(e);}
 }
@@ -43,10 +43,8 @@ export const updateConversation = async (req, res, next) => {
 
 export const getSingleConversation = async (req, res, next) => {
     try{
-
         const coversation = await Conversations.findOne({id: req.params.id});
-        res.status(200).send(coversation);
-
+        res.status(200).json({message: "Conversation Fetched Successfully", data: coversation});
     }catch(e) { next(e);}
 }
 
@@ -54,9 +52,8 @@ export const getSingleConversation = async (req, res, next) => {
 
 export const getConversations = async (req, res, next) => {
     try{
-
         const coversations = await Conversations.find(req.isSeller ? {sellerId: req.userId} : {buyerId: req.userId});
-        res.status(200).send(coversations);
+        res.status(200).json({message: "Conversations Fetched Successfully", data: coversations});
 
     }catch(e) { next(e);}
 }

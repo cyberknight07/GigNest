@@ -7,7 +7,7 @@ export const deleteUser = async (req, res) => {
      if(req.userId !== user._id) return next(createError(403, "You can only delete your account."))
 
      await User.findByIdAndDelete(req.params.id);
-     res.status(200).send("You have deleted account successfully.")    
+     res.status(200).json({message: "User deleted."});  
 }
 
 export const getUser = async (req, res) => {
@@ -15,5 +15,5 @@ export const getUser = async (req, res) => {
      const user = await User.findById(req.params.id);
      if(!user) return next(createError(404, "User not found"));
 
-     res.status(200).send(user);    
+     res.status(200).json({message: "User fetched successfully", data: user}); 
 }

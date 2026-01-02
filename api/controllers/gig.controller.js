@@ -21,7 +21,7 @@ export const getGigs = async (req, res, next) => {
     try{
         const gigs = await Gig.find(filters);
         if(!gigs) return next(createError(404, "Gigs are empty. Create new one."));
-        res.status(200).send(gigs);
+        res.status(200).json({message: "Gigs Fetched Successfully", data: gigs});
 
     }catch (e){
         next(e);
@@ -35,7 +35,7 @@ export const getGig = async (req, res, next) => {
 
         if(!gig) return next(createError(404, "Gig not found"));
 
-        res.status(200).send(gig);
+        res.status(200).json({message: "Gig Fetched Successfully", data: gig});
 
     } catch (err) {
         next(err);
@@ -51,7 +51,7 @@ export const createGig = async (req,res, next) => {
 
     try{
         const savedGig = await newGig.save();
-        res.status(201).send(savedGig);
+        res.status(201).json({message: "Gig Created Successfully", data: savedGig});
 
     } catch(e) {
         next(e)
@@ -66,7 +66,7 @@ export const deleteGig = async (req, res, next) => {
         }
 
         await Gig.findByIdAndDelete(req.params.id);
-        res.status(201).send("Gig has been deleted");
+        res.status(201).json({message: "Gig has been deleted"});
 
     }catch(err)
         {

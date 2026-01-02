@@ -46,7 +46,7 @@ const Orders = () => {
               <td>
                 <img
                   className="order"
-                  src="public/imgs/message.png"
+                  src="imgs/message.svg"
                   alt=""
                   srcset=""
                 />
@@ -68,7 +68,7 @@ const Orders = () => {
                 <Link to="/message/123">
                   <img
                     className="order"
-                    src="public/imgs/message.png"
+                    src="imgs/message.svg"
                     alt=""
                     srcset=""
                   />
@@ -90,7 +90,7 @@ const Orders = () => {
               <td>
                 <img
                   className="order"
-                  src="public/imgs/message.png"
+                  src="imgs/message.svg"
                   alt=""
                   srcset=""
                 />
@@ -111,7 +111,7 @@ const Orders = () => {
               <td>
                 <img
                   className="order"
-                  src="public/imgs/message.png"
+                  src="imgs/message.svg"
                   alt=""
                   srcset=""
                 />
@@ -132,7 +132,7 @@ const Orders = () => {
               <td>
                 <img
                   className="order"
-                  src="public/imgs/message.png"
+                  src="imgs/message.svg"
                   alt=""
                   srcset=""
                 />

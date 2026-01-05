@@ -42,7 +42,7 @@ const MyGigs = () => {
               <td>$25</td>
               <td>11</td>
               <td>
-                <Icon src="/imgs/delete.png" alt="" srcset="" />
+                <Icon src="/imgs/delete.svg" alt="" srcset="" />
               </td>
             </tr>
             <tr>
@@ -58,7 +58,7 @@ const MyGigs = () => {
               <td>$25</td>
               <td>11</td>
               <td>
-                <Icon src="/imgs/delete.png" alt="" srcset="" />
+                <Icon src="/imgs/delete.svg" alt="" srcset="" />
               </td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@ const MyGigs = () => {
               <td>$25</td>
               <td>11</td>
               <td>
-                <Icon src="/imgs/delete.png" alt="" srcset="" />
+                <Icon src="/imgs/delete.svg" alt="" srcset="" />
               </td>
             </tr>
           </tbody>

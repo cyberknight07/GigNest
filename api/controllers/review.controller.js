@@ -26,7 +26,7 @@ export const createReview = async (req, res, next) => {
             $inc: {totalStars: req.body.stars, starNumber: 1}
         })
         
-        res.status(201).send(savedReview);
+        res.status(201).json({message: "Review created successfully", data: savedReview});
         
     } catch (err) { next(err);}
 }
@@ -38,7 +38,7 @@ export const getReviews = async (req, res, next) => {
 
         const reviews = await Reviews.find ({ gigId: req.params.gigId});
         if(!reviews) return next(createError(403, "No review found."));
-        res.status(200).send(reviews);
+        res.status(200).json({message: "Reviews fetched successfully", data: reviews});
 
     } catch (err) { next(err);}
 }

@@ -22,6 +22,12 @@ export const Sections = styled.div`
   gap: 50px;
 `;
 
+export const ImageDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+`;
+
 const CommonSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,8 +50,8 @@ const CommonSection = styled.div`
   }
 
   button {
+    padding: 8px 16px 8px 16px;
     border: none;
-    padding: 20px;
     background-color: green;
     color: white;
     font-weight: 500;

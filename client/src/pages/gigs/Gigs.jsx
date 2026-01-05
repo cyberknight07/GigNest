@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { gigs } from "../../data";
+import React, { useEffect, useRef, useState } from "react";
+import newRequest from "../../utils/apiRequest.js";
 import GigCard from "../../components/gigCard/GigCard.jsx";
 import {
   GigsContainer,
@@ -23,9 +23,10 @@ import {
 import { useLocation } from "react-router-dom";
 
 const Gigs = () => {
-  const sortingList = ["Best Selling", "High to Low", "Low to High"];
+  const sortingList = ["Best Selling", "Latest"];
   const [sorting, setSorting] = useState(sortingList[0]);
   const [active, setActive] = useState(false);
+  const [gigs, setGigs] = useState([]);
   const minRef = useRef();
   const maxRef = useRef();
   const { search } = useLocation();
@@ -34,6 +35,20 @@ const Gigs = () => {
     console.log(search); //"?cat=Mountain%20Adventure"
     console.log("Value " + minRef + "Value " + maxRef);
   };
+
+  useEffect(() => {
+    try {
+      
+      async function fetchGigs() {
+        const response = await newRequest.get("gigs");
+        console.log(response?.data);
+        setGigs(response.data.data);
+      }
+      fetchGigs();
+    } catch (error) {
+      console.log(error)
+    }
+  }, []);
 
   return (
     <GigsContainer>
@@ -92,8 +107,8 @@ const Gigs = () => {
         </FilterHeader>
 
         <GigList>
-          {gigs.map((item) => (
-            <GigCard key={item.id} item={item} />
+          {gigs.map((item, index) => (
+            <GigCard key={index} item={item} />
           ))}
         </GigList>
       </Container>

@@ -14,18 +14,18 @@ import { Link } from "react-router-dom";
 
 const GigCard = ({ item }) => {
   return (
-    <Link to="/gig/:id" className="link">
+    <Link to={`gig/${item._id}`} className="link">
       <GigCardWrapper>
-        <GigImage src={item.img} />
+        <GigImage src={item.cover} />
         <InfoDiv>
           <UserSpan>
             <img src={item.pp} className="pp" />
             <text>{item.username}</text>
           </UserSpan>
-          <TitleParagraph>{item.desc}</TitleParagraph>
+          <TitleParagraph>{item.title}</TitleParagraph>
           <StarsSpan>
             <img src="imgs/star.svg" />
-            {item.star}
+            {item.totalStars}
           </StarsSpan>
         </InfoDiv>
         <HorizontalLine />

@@ -57,8 +57,7 @@ export const UserInfo = styled.div`
 
 export const Stars = styled.div`
   img {
-    width: 20px;
-    height: auto;
+    width: 30px;
   }
 `;
 
@@ -72,6 +71,8 @@ export const Scrollbar = styled.div`
 `;
 
 export const Image = styled.img`
+
+    transform: ${({left}) => (left ? "rotate(180deg)" : "Opx")}; ;
     cursor: ${({button}) => (button ? "pointer" : "auto")};
     width: ${({button}) => (button ? "40px" : "360px")};
     height: ${({button}) => {button ? "40px": "360px"}};

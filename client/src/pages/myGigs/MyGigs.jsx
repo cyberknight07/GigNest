@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   OrdersContainer,
@@ -8,7 +7,23 @@ import {
   OrdersWrapper,
   Icon,
 } from "./MyGigs.styles.js";
+import newRequest from "../../utils/apiRequest.js";
+
 const MyGigs = () => {
+  const [myGigs, setMyGigs] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await newRequest.get("gigs");
+        setMyGigs(response.data.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <OrdersWrapper>
       <OrdersContainer>
@@ -29,54 +44,19 @@ const MyGigs = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <img
-                  className="image"
-                  src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
-                  alt=""
-                  srcset=""
-                />
-              </td>
-              <td>Gig 1</td>
-              <td>$25</td>
-              <td>11</td>
-              <td>
-                <Icon src="/imgs/delete.svg" alt="" srcset="" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img
-                  className="image"
-                  src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
-                  alt=""
-                  srcset=""
-                />
-              </td>
-              <td>Gig 1</td>
-              <td>$25</td>
-              <td>11</td>
-              <td>
-                <Icon src="/imgs/delete.svg" alt="" srcset="" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img
-                  className="image"
-                  src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
-                  alt=""
-                  srcset=""
-                />
-              </td>
-              <td>Gig 1</td>
-              <td>$25</td>
-              <td>11</td>
-              <td>
-                <Icon src="/imgs/delete.svg" alt="" srcset="" />
-              </td>
-            </tr>
+            {myGigs.map((gig, index) => (
+              <tr key={index}>
+                <td>
+                  <img className="image" src={gig.cover} alt="image" />
+                </td>
+                <td>{gig.title}</td>
+                <td>{gig.price}</td>
+                <td>{gig.sales}</td>
+                <td>
+                  <Icon src="/imgs/delete.svg" alt="" srcset="" />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </OrdersTable>
       </OrdersContainer>

@@ -10,6 +10,7 @@ import {
   OrdersTable,
   OrdersWrapper,
 } from "./Orders.styles.js";
+
 const Orders = () => {
   return (
     <OrdersWrapper>

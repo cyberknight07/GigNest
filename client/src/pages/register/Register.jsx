@@ -39,7 +39,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(file);
     const url = await upload(file);
     try {
       console.log(url);

@@ -54,7 +54,7 @@ export const createGig = async (req,res, next) => {
         res.status(201).json({message: "Gig Created Successfully", data: savedGig});
 
     } catch(e) {
-        next(e)
+        next(e);
     }
 }
 export const deleteGig = async (req, res, next) => {
@@ -68,8 +68,8 @@ export const deleteGig = async (req, res, next) => {
         await Gig.findByIdAndDelete(req.params.id);
         res.status(201).json({message: "Gig has been deleted"});
 
-    }catch(err)
+    }catch(e)
         {
-            next(err);
+            next(e);
         }
 }

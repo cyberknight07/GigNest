@@ -41,7 +41,7 @@ export const login = async (req, res, next) => {
         })
 
     } catch (error) {
-        next(error);
+        next(createError(error));
     }
 }
 

@@ -1,6 +1,6 @@
-import express from 'express'
-import { verifyToken } from '../middleware/jwt.js';
-import {getAllOrders, createOrder} from "../controllers/order.controller.js"
+import express from "express";
+import { verifyToken } from "../middleware/jwt.js";
+import { getAllOrders, createOrder } from "../controllers/order.controller.js";
 
 const router = express.Router();
 

@@ -2,18 +2,17 @@ import User from "../modals/User.js";
 import { createError } from "../utils/createError.js";
 
 export const deleteUser = async (req, res) => {
-    
-     const user = await User.findById(req.params.id);
-     if(req.userId !== user._id) return next(createError(403, "You can only delete your account."))
+  const user = await User.findById(req.params.id);
+  if (req.userId !== user._id)
+    return next(createError(403, "You can only delete your account."));
 
-     await User.findByIdAndDelete(req.params.id);
-     res.status(200).json({message: "User deleted."});  
-}
+  await User.findByIdAndDelete(req.params.id);
+  res.status(200).json({ message: "User deleted." });
+};
 
 export const getUser = async (req, res) => {
-    
-     const user = await User.findById(req.params.id);
-     if(!user) return next(createError(404, "User not found"));
+  const user = await User.findById(req.params.id);
+  if (!user) return next(createError(404, "User not found"));
 
-     res.status(200).json({message: "User fetched successfully", data: user}); 
-}
+  res.status(200).json({ message: "User fetched successfully", data: user });
+};

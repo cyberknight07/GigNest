@@ -3,6 +3,7 @@
 
 import styled from "styled-components";
 
+
 export const OrdersWrapper = styled.div`
     display: flex;
     justify-content: center;    
@@ -29,7 +30,7 @@ export const OrdersHeader = styled.div`
 export const OrdersTable = styled.table`
                 width: 100%;
                 border: none;
-    
+
                 tr{
                     height: 50px;
                     th{

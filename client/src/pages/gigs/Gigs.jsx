@@ -38,7 +38,6 @@ const Gigs = () => {
 
   useEffect(() => {
     try {
-      
       async function fetchGigs() {
         const response = await newRequest.get("gigs");
         console.log(response?.data);
@@ -46,7 +45,7 @@ const Gigs = () => {
       }
       fetchGigs();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }, []);
 

@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { verifyToken } from "../middleware/jwt.js";
-import { getConversations, createConversation, getSingleConversation, updateConversation } from "../controllers/conversation.controller.js";
+import {
+  getConversations,
+  createConversation,
+  getSingleConversation,
+  updateConversation,
+} from "../controllers/conversation.controller.js";
 
 const router = Router();
 

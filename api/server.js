@@ -11,13 +11,11 @@ import conversationRouter from "./routes/conversation.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-
-
 const app = express();
-app.use(cors({origin:"http://localhost:5173", credentials: true},))
+dotenv.config();
+app.use(cors({ origin: process.env.MAIN_ORIGIN_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-dotenv.config();
 
 // Routing
 app.use("/api/users", userRouter);
@@ -28,19 +26,20 @@ app.use("/api/orders", orderRouter);
 app.use("/api/conversations", conversationRouter);
 app.use("/api/messages", messageRouter);
 
-
 // Error Middleware
 app.use((err, req, res, next) => {
-    const errorStatus = err.status || 500;
-    const errorMessage = err.message || "Something went wrong.";
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong.";
 
-    res.status(errorStatus).json({error: errorMessage});
-})
+  res.status(errorStatus).json({ error: errorMessage });
+});
 
-app.get('/', (req, res) => {res.json({message: "It is working"})});
+app.get("/", (req, res) => {
+  res.json({ message: "It is working" });
+});
 
 // Listening on port 3000
 app.listen(3000, async (req, res) => {
-    console.log("Server is running on http://localhost:3000/");
-    await connectDB();
-})
+  console.log("Server is running on http://localhost:3000/");
+  await connectDB();
+});

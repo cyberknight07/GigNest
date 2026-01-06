@@ -5,6 +5,6 @@ import { verifyToken } from "../middleware/jwt.js";
 const router = exress.Router();
 
 router.get("/single/:id", verifyToken, getUser);
-router.delete("/delete/:id",verifyToken, deleteUser);
+router.delete("/delete/:id", verifyToken, deleteUser);
 
 export default router;

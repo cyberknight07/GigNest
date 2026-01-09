@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FeaturedWrapper,
   Container,
@@ -12,6 +12,13 @@ import {
 } from "./Featured.styles";
 
 const Featured = () => {
+
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+  
+
   return (
     <FeaturedWrapper>
       <Container>
@@ -22,15 +29,15 @@ const Featured = () => {
 
           <Search>
             <SearchText>
-              <img src="imgs/search.svg" alt="search icon" />
-              <input type="text" placeholder="Search" />
+              <a href={`/gigs?search=${search}`} target="_self"><img src="imgs/search.svg" alt="search icon" /></a>
+              <input type="text" placeholder="Search the gigs" value={search} onChange={handleSearch} />
             </SearchText>
             <SearchButton>Search</SearchButton>
           </Search>
 
           <Popular>
             <span>Popular:</span>
-            <button>Hero</button>
+            <button >Hero</button>
             <button>Villain</button>
             <button>Rowdy</button>
           </Popular>

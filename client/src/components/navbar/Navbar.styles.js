@@ -75,7 +75,7 @@ export const ActionButton = styled.span`
   transition: color 0.3s ease;
 
   &:hover {
-    color: darkgreen;
+    color: darkblue;
     font-weight: 600;
   }
 `;
@@ -107,6 +107,10 @@ export const User = styled.div`
   cursor: pointer;
   position: relative;
   user-select: none;
+  &:hover {
+    color: darkblue;
+    font-weight: 600;
+  }
 `;
 
 export const UserImage = styled.img`

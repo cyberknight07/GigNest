@@ -57,7 +57,9 @@ export const UserInfo = styled.div`
 
 export const Stars = styled.div`
   img {
-    width: 30px;
+    width: 25px;
+    object-fit: contain;
+    border-radius: 50%;
   }
 `;
 

@@ -12,7 +12,7 @@ export const TableRow = styled.tr`
     .image {
       width: 70px;
       height: 35px;
-      object-fit: cover;
+      object-fit: contain;
     }
     .order {
       width: 20px;

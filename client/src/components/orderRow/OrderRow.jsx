@@ -6,10 +6,11 @@ import newRequest from "../../utils/apiRequest";
 const OrderRow = ({ order }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  let user = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
     async function fetchUser () {
-      const res = (await newRequest("users/single/" + order.sellerId));
+      const res = (await newRequest.get("users/single/" + (user?.body.isSeller ? order.buyerId : order.sellerId)));
       console.log(res.data.data)
       setUsername(() => res?.data?.data?.username);
     } // Can we add the order details to seller account from OrderRow?

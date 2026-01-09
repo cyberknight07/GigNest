@@ -20,34 +20,47 @@ import {
   GigList,
   SubHeaderText,
 } from "./Gigs.styles";
+import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 
 const Gigs = () => {
   const sortingList = ["Best Selling", "Latest"];
   const [sorting, setSorting] = useState(sortingList[0]);
   const [active, setActive] = useState(false);
-  const [gigs, setGigs] = useState([]);
   const minRef = useRef();
   const maxRef = useRef();
+  const [filters, setFilter] = useState({});
   const { search } = useLocation();
 
-  const ApplyFilter = () => {
-    console.log(search); //"?cat=Mountain%20Adventure"
-    console.log("Value " + minRef + "Value " + maxRef);
+  const fetchGigs = async () => {
+    console.log(
+      filters,
+      "Sorting => " + sorting + " Search => " + search.split("?")[1]
+    );
+    const res = await newRequest.get("gigs", {
+      params: {
+        ...filters,
+        sort: sorting === "Latest" ? "createdAt" : "sales",
+        search: search.split("=")[1],
+      },
+    });
+
+    return res.data.data;
   };
 
-  useEffect(() => {
-    try {
-      async function fetchGigs() {
-        const response = await newRequest.get("gigs");
-        console.log(response?.data);
-        setGigs(response.data.data);
-      }
-      fetchGigs();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const { data, loading, error } = useQuery({
+    queryKey: ["gigs", filters, sorting, search],
+    queryFn: fetchGigs,
+  });
+
+  const ApplyFilter = () => {
+    console.log("Value " + minRef.current + "Value " + maxRef.ref);
+    setFilter({
+      min: minRef.current.value,
+      max: maxRef.current.value,
+    });
+  };
 
   return (
     <GigsContainer>
@@ -106,9 +119,25 @@ const Gigs = () => {
         </FilterHeader>
 
         <GigList>
-          {gigs.map((item, index) => (
-            <GigCard key={index} item={item} />
-          ))}
+          {loading ? (
+            <Oval
+              height={80}
+              width={80}
+              color="#4fa94d"
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#4fa94d"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+              wrapperStyle={{ display: "flex", justifyContent: "center" }}
+            />
+          ) : error?.message ? ( // Can not able to show error message
+            <div>error.message</div>
+          ) : !data ? ( // Can not able to show this message when data is empty.
+            <div>Nothing to show here.</div>
+          ) : (
+            data.map((item, index) => <GigCard key={index} item={item} />)
+          )}
         </GigList>
       </Container>
     </GigsContainer>

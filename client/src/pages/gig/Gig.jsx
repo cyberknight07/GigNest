@@ -24,8 +24,11 @@ const Gig = () => {
   const gigId = useParams();
   const [gig, setGig] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(gigId);
 
+  const handlePurchase = async () => {
+    const createOrder = await newRequest.post("orders/" + gigId.id);
+    console.log(createOrder);
+  };
 
   useEffect(() => {
     try {
@@ -36,7 +39,6 @@ const Gig = () => {
           "users/single/" + res.data.data.userId
         );
         console.log(res.data.data);
-        // console.log(userRes.data.data);
         setLoading(false);
         setGig((prev) => {
           return { gig: res.data.data, user: userRes.data.data };
@@ -72,10 +74,10 @@ const Gig = () => {
             <Title>{gig?.gig?.title}</Title>
 
             <UserInfo>
-              <img src={gig?.user?.img} alt="User avatar" />
+              <img src={gig?.user?.img || "assets/avatar.svg"} alt="User avatar" />
               <span>{gig?.user?.username}</span>
               <Stars>
-                <img src="imgs/star.svg" alt="Stars"/> {/* Not WORKING */}
+                <img src="/imgs/star.svg" alt="Stars" /> {/* Not WORKING */}
                 <span>{gig?.gig?.totalStars}</span>
               </Stars>
             </UserInfo>
@@ -100,7 +102,7 @@ const Gig = () => {
                   textAlign: "center",
                 }}
               >
-                <Image src={gig?.gig?.images[index]} alt={index} />
+                <Image src={gig?.gig?.cover} alt={index} />
                 <div>{index + 1}</div>
               </div>
               <Image
@@ -154,7 +156,12 @@ const Gig = () => {
               <span>Hello</span>
               <span>Hello</span>
               <span>Hello</span>
-              <button>Purchase</button>
+              <button
+                style={{ padding: "8px", borderRadius: "4px" }}
+                onClick={handlePurchase}
+              >
+                <a href='/orders' target="_self" className="link">Purchase</a>
+              </button>
             </BillContainer>
           </RightSection>
         </Container>

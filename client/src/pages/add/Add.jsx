@@ -1,5 +1,14 @@
+// TODO - Need to update the upload image logic. As i can not able to move two or more pictures simultaneously.
+
 import React from "react";
-import { AddWrapper, Container, Sections, Left, Right, ImageDiv } from "./Add.styles";
+import {
+  AddWrapper,
+  Container,
+  Sections,
+  Left,
+  Right,
+  ImageDiv,
+} from "./Add.styles";
 
 import upload from "../../utils/uploadData.js";
 import { useState } from "react";
@@ -12,8 +21,8 @@ const Add = () => {
     title: "",
     category: "",
     cover: "",
-    images: [],
-    description: "",
+    // images: [],
+    desc: "",
     shortDesc: "",
     price: 0,
     deliveryTime: 0,
@@ -45,6 +54,7 @@ const Add = () => {
   const handleCreateRequest = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData);
       const response = await newRequest.post("gigs", formData);
       console.log("Add.js" + response);
     } catch (error) {
@@ -74,38 +84,42 @@ const Add = () => {
               name="category"
               onChange={handleFormData}
             >
-              <option value="design">Design</option>
-              <option value="web">Web Development</option>
-              <option value="animation">Animation</option>
-              <option value="music">Music</option>
+              <option name="category" value="design">Design</option>
+              <option name="category" value="web">Web Development</option>
+              <option name="category" value="animation">Animation</option>
+              <option name="category" value="music">Music</option>
             </select>
 
             <label>Cover Image</label>
             <ImageDiv>
               <input
-              type="file"
-              name="cover"
-              onChange={(e) => setImgFile(e.target.files[0])}
-            />
-            <button onClick={handleImage} disabled = {uploading}>Upload</button>
+                type="file"
+                name="cover"
+                onChange={(e) => setImgFile(e.target.files[0])}
+              />
+              <button name="cover" onClick={handleImage} disabled={uploading}>
+                Upload
+              </button>
             </ImageDiv>
 
-            <label>Upload Image</label>
+            {/* <label>Upload Images</label>
             <ImageDiv>
               <input
-              type="file"
-              multiple
-              name="images"
-              onChange={(e) => setImgFile(e.target.files[0])}
-            />
-            <button onClick={handleImage} disabled={uploading}>Upload</button>
-            </ImageDiv>
+                type="file"
+                multiple
+                name="images"
+                onChange={(e) => setImgFile(e.target.files)}
+              />
+              <button onClick={handleImage} disabled={uploading}>
+                Upload
+              </button>
+            </ImageDiv> */}
 
             <label>Description</label>
             <textarea
               placeholder="Write description"
               rows="16"
-              name="description"
+              name="desc"
               value={formData.description}
               onChange={handleFormData}
             />

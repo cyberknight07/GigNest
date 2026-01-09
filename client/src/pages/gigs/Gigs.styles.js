@@ -156,6 +156,5 @@ export const DropdownDivider = styled.hr`
 export const GigList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: 20px;
 `;

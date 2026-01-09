@@ -109,7 +109,7 @@ const Navbar = () => {
               aria-expanded={open ? "true" : "false"}
             >
               <UserImage
-                src={currentUser.body.img || "assets/avatar.png"}
+                src={currentUser.body.img || "assets/avatar.svg"}
                 alt="user avatar"
               />
               <span>{currentUser.body.username}</span>

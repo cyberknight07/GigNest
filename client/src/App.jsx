@@ -11,8 +11,10 @@ import Add from "./pages/add/Add";
 import Orders from "./pages/orders/Orders";
 import Message from "./pages/message/Message";
 import Messages from "./pages/messages/Messages";
+import BusinessPage from "./pages/business/BusinessPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import BecomeSeller from "./pages/becomeSellor/BecomeSeller";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +39,14 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/business",
+          element: <BusinessPage/>
+        },
+        {
+          path: "/become-seller",
+          element: <BecomeSeller/>
         },
         {
           path: "/gigs",

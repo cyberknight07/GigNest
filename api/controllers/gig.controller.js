@@ -19,7 +19,8 @@ export const getGigs = async (req, res, next) => {
   };
 
   try {
-    const gigs = await Gig.find(filters);
+    const gigs = await Gig.find(filters).sort({ [q.sort]: -1 }); // Getting Problem of Multiple filter, so i need to use array rather than object.
+
     if (!gigs) return next(createError(404, "Gigs are empty. Create new one."));
     res.status(200).json({ message: "Gigs Fetched Successfully", data: gigs });
   } catch (e) {

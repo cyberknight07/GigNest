@@ -24,25 +24,26 @@ export const GigCardWrapper = styled.div`
 `;
 
 export const GigImage = styled.img`
-    height: 200px;
-    object-fit: cover;
+    height: 180px;
+    width: auto;
+    object-fit: contain;
 `;
 
 export const InfoDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4px 8px;
+    padding-left: 8px;
 `;
 
 export const UserSpan = styled.span`
             display: flex;
             align-items: center;
             justify-content: start;
-            gap: 10px;
+            gap: 8px;
             font-size: 18px;
             .pp{
-                width: 40px;
+                width: 30px;
                 border-radius: 50%;
             }
 `;
@@ -55,7 +56,7 @@ export const TitleParagraph = styled.p`
     color: grey; // 
     font-size: 15px;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: hidden;   
     text-overflow: ellipsis;
 `;
 export const StarsSpan = styled.span`
@@ -74,7 +75,7 @@ export const DetailsWrapper = styled.div`
         padding: 0px 16px;
             
         img{
-                width: 30px;
+                width: 25px;
         }
 `;
 export const PriceDiv = styled.div`

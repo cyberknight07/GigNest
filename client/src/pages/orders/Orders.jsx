@@ -17,8 +17,7 @@ import OrderRow from "../../components/orderRow/OrderRow.jsx";
 const Orders = () => {
   const [orders, setOrders] = useState(null);
   const [loading, setLoading] = useState(false);
-  const user = localStorage.getItem("currentuser"); // isko seedhe api k response se aana chahiye either using middleware with provide user as request.
-
+  let user = JSON.parse(localStorage.getItem("currentUser")); // isko seedhe api k response se aana chahiye either using middleware with provide user as request.
   // const handleConversation = async (toAddress) => {
   //   try {
   //     await newRequest.post("conversations", toAddress);
@@ -75,7 +74,7 @@ const Orders = () => {
                 <th>Images</th>
                 <th>Title</th>
                 <th>Price</th>
-                <th>{user?.isSeller ? "Buyer" : "Seller"}</th>
+                <th>{user?.body?.isSeller ? "Buyer" : "Seller"}</th>
                 <th>Contact</th>
               </tr>
             </thead>

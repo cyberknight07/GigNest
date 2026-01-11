@@ -1,4 +1,5 @@
 import Conversations from "../modals/conversation.js";
+import { createError } from "../utils/createError.js";
 
 export const createConversation = async (req, res, next) => {
   const newConversation = new Conversations({
@@ -15,7 +16,7 @@ export const createConversation = async (req, res, next) => {
       data: savedConversation,
     });
   } catch (e) {
-    next(e);
+    next(createError(409, e.message));
   }
 };
 

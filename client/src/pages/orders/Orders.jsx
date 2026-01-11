@@ -46,9 +46,11 @@ const Orders = () => {
       <OrdersContainer>
         <OrdersHeader>
           <h1>Orders</h1>
-          <Link to="/explore">
-            <button>Add new order</button>
-          </Link>
+          {user?.body?.isSeller === false && (
+            <Link to="/gigs">
+              <button style={{cursor:"pointer", fontWeight:"600"}}>Add new order</button>
+            </Link>
+          )}
         </OrdersHeader>
         {loading && (
           <Oval
@@ -66,7 +68,6 @@ const Orders = () => {
         {!loading && !orders && (
           <div>Nothing to show here. Make a new order.</div>
         )}
-        /* Not working */
         {!loading && orders && (
           <OrdersTable>
             <thead>

@@ -15,6 +15,7 @@ import BusinessPage from "./pages/business/BusinessPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BecomeSeller from "./pages/becomeSellor/BecomeSeller";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ function App() {
           <Navbar />
           <Outlet />
           <Footer />
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </div>
     );
@@ -42,11 +44,11 @@ function App() {
         },
         {
           path: "/business",
-          element: <BusinessPage/>
+          element: <BusinessPage />,
         },
         {
           path: "/become-seller",
-          element: <BecomeSeller/>
+          element: <BecomeSeller />,
         },
         {
           path: "/gigs",

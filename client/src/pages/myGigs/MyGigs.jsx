@@ -15,7 +15,7 @@ const MyGigs = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await newRequest.get("gigs");
+        const response = await newRequest.get("gigs/mygigs");
         setMyGigs(response.data.data);
       } catch (error) {
         console.log(error.message);

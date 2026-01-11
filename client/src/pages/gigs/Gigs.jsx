@@ -23,6 +23,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
+import decodedUrl from "../../utils/decodeUrl.js";
 
 const Gigs = () => {
   const sortingList = ["Best Selling", "Latest"];
@@ -42,14 +43,15 @@ const Gigs = () => {
       params: {
         ...filters,
         sort: sorting === "Latest" ? "createdAt" : "sales",
-        search: search.split("=")[1],
+        search: search === "" ? "" : decodedUrl(search.split("=")[1]),
       },
     });
+    console.log(res.data.data);
 
     return res.data.data;
   };
 
-  const { data, loading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["gigs", filters, sorting, search],
     queryFn: fetchGigs,
   });
@@ -66,7 +68,7 @@ const Gigs = () => {
     <GigsContainer>
       <Container>
         <HeaderText as="p" small>
-          Gignest -{`>`} <SubHeaderText>{search.split("=")[1]}</SubHeaderText>
+          Gignest -{`>`} <SubHeaderText>{search === "" ? "All posts" : decodedUrl(search.split("=")[1])}</SubHeaderText>
         </HeaderText>
         <HeaderText as="h1">AI Artists</HeaderText>
         <HeaderText as="p" small>
@@ -119,8 +121,8 @@ const Gigs = () => {
         </FilterHeader>
 
         <GigList>
-          {loading ? (
-            <Oval
+          {isLoading ? (
+            <div style={{ width:"full", display: "flex", justifyContent: "center", alignItems: "center" }}><Oval
               height={80}
               width={80}
               color="#4fa94d"
@@ -129,10 +131,9 @@ const Gigs = () => {
               secondaryColor="#4fa94d"
               strokeWidth={2}
               strokeWidthSecondary={2}
-              wrapperStyle={{ display: "flex", justifyContent: "center" }}
-            />
+            /></div>
           ) : error?.message ? ( // Can not able to show error message
-            <div>error.message</div>
+            <div>{error?.message}</div>
           ) : !data ? ( // Can not able to show this message when data is empty.
             <div>Nothing to show here.</div>
           ) : (

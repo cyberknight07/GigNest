@@ -24,44 +24,14 @@ margin: 10px 10px;
             flex-direction: column;
             overflow-y:auto;
 `;
-export const ItemBox = styled.div`
-                display: flex;
-                gap: 10px;
-                padding: 0px 8px;
-                max-width: 40vw;
-                font-size: 18px;
 
-                &.owner{
-                    flex-direction: row-reverse;
-                    align-self: flex-end;
-
-                    p{
-                        border-radius: 20px 0px 20px 20px;
-                        background-color: rgb(41, 41, 179);
-                        color: white;
-                    }
-                }
-`;
-export const ItemImage = styled.img`
-                margin-top: 16px;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                object-fit: cover;
-`;
-export const ItemParagragh = styled.p`
-                    padding: 10px;
-                    background-color: lightgrey ;
-                    color: rgb(83, 82, 82);
-                    border-radius: 0px 20px 20px 20px;
-              `;
 export const HorizontalLine = styled.hr`
             height: 0px;
             border: 1px solid rgba(88, 71, 71, 1);
             margin: 4px 10px;
 `;
 
-export const WriterBox = styled.div`
+export const WriterForm = styled.form`
             margin:4px;
             padding: 0px 8px;
             display: flex;

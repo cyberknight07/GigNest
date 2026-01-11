@@ -28,6 +28,19 @@ export const getGigs = async (req, res, next) => {
   }
 };
 
+export const getUserGigs = async (req, res, next) => {
+  try{
+    console.log(req.userId);
+    const gigs = await Gig.find({userId: req.userId});
+    console.log(gigs);
+    if(!gigs) return next(createError(404, "No Gigs Available. Create New"));
+    return res.status(200).json({message: "Gigs Fetched Successfully", data: gigs});
+
+  } catch (e) {
+    next(e);
+  }
+};
+
 export const getGig = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.id);

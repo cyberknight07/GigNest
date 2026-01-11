@@ -1,27 +1,68 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   MessageWrapper,
   Container,
   MessagesBox,
-  ItemBox,
-  ItemImage,
-  ItemParagragh,
   HorizontalLine,
-  WriterBox,
+  WriterForm,
 } from "./Message.styles";
+import MessageCard from "../../components/messageCard/MessageCard";
 import newRequest from "../../utils/apiRequest";
+import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Message = () => {
-  const sendMessage = async (e) => {
-    e.preventDefault();
 
+  const {id} = useParams();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const queryClient = useQueryClient();
+  const fetchMessages = async () => {
+      try {
+        const messages = await newRequest.get(`/messages/${id}`)
+        console.log(messages.data);
+        return messages.data.data;
+      } catch (error) {
+          console.log(error);
+      }
+  }
+
+  const {data: messages, isLoading, isError, error} = useQuery({
+    queryKey: ["messages"],
+    queryFn: fetchMessages
+  })
+
+  const sendMessage = async (message) => {
     try {
-      await newRequest.post("messages/createMessage", {});
+      const res = await newRequest.post("messages/createMessage", message);
+      return res.data.data;
     } catch (e) {
       console.log(e);
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const message = formData.get('text');
+    
+    mutate({conversationId: id, message: message})
+
+    e.target.reset();
+   }
+
+
+  const {mutate} = useMutation({
+    mutationFn: sendMessage,
+    onMutate: () => {return {id: 1}},
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["messages"],
+        exact: true
+      })
+    }
+
+
+  })
 
   return (
     <MessageWrapper>
@@ -33,49 +74,24 @@ const Message = () => {
           {">"} John Doe {">"}
         </span>
         <MessagesBox>
-          <ItemBox>
-            <ItemImage
-              src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
-              alt=""
-              srcset=""
-            />
-            <ItemParagragh>
-              Lorem ipsum dolor sit amet corrupti alias corporis tempora eos
-              provident natus vitae libero tenetur at. Quae eum cupiditate
-              dolore libero nisi labore illum tenetur, exercitationem obcaecati
-              facere ut rem a vel. Obcaecati asperiores blanditiis explicabo
-              praesentium eaque dolores, magni placeat illum, ducimus beatae
-              doloribus in odit similique excepturi ea aspernatur minima sit
-              enim.
-            </ItemParagragh>
-          </ItemBox>
-          <ItemBox>
-            <ItemImage
-              src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
-              alt=""
-            />
-            <ItemParagragh>
-              Lorem ipsum dolor sit amet corrupti alias corporis tempora eos
-              provident natus vitae libero tenetur at. Quae eum cupiditate
-              dolore libero nisi labore illum tenetur, exercitationem obcaecati
-              facere ut rem a vel. Obcaecati asperiores blanditiis explicabo
-              praesentium eaque dolores, magni placeat illum, ducimus beatae
-              doloribus in odit similique excepturi ea aspernatur minima sit
-              enim.
-            </ItemParagragh>
-          </ItemBox>
+          {isLoading && <div>Messages.....</div>}
+          {isError && <div>{error}</div>}
+          {!messages && <div>Say Hi!</div>}
+          {console.log(messages)}
+          {messages?.map((message, index) => (
+              <MessageCard key= {index} message = {message}/>
+            ))}
         </MessagesBox>
         <HorizontalLine />
-        <WriterBox>
+        <WriterForm onSubmit={handleSubmit}>
           <textarea
             name="text"
-            id=""
             placeholder="Type a message"
             cols="30"
             rows="10"
           ></textarea>
-          <button type="button" onClick={sendMessage}>Send</button>
-        </WriterBox>
+          <button type="submit" >Send</button>
+        </WriterForm>
       </Container>
     </MessageWrapper>
   );

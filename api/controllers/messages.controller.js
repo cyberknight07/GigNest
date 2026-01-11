@@ -4,7 +4,8 @@ import Messages from "../modals/messages.js";
 export const createMessage = async (req, res, next) => {
   const newMessage = new Messages({
     userId: req.userId,
-    desc: req.body.desc,
+    message: req.body.message,
+    conversationId:req.body.conversationId,
   });
 
   try {
@@ -22,7 +23,7 @@ export const createMessage = async (req, res, next) => {
     );
     res
       .status(201)
-      .json({ message: "Review created successfully", data: sendMes });
+      .json({ message: "Message Sent successfully", data: savedMessage });
   } catch (e) {
     next(e);
   }
@@ -33,7 +34,7 @@ export const getMessages = async (req, res, next) => {
     const messages = await Messages.find({
       conversationId: req.params.conversationId,
     });
-    res.status(200).send(messages);
+    res.status(200).json({message: "Messages fetched Successfully", data: messages});
   } catch (e) {
     next(e);
   }

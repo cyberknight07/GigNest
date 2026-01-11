@@ -8,14 +8,30 @@ const OrderRow = ({ order }) => {
   const [username, setUsername] = useState("");
   let user = JSON.parse(localStorage.getItem("currentUser"));
 
+  
+
   useEffect(() => {
     async function fetchUser () {
-      const res = (await newRequest.get("users/single/" + (user?.body.isSeller ? order.buyerId : order.sellerId)));
-      console.log(res.data.data)
+      const res = (await newRequest.get("users/single/" + (user?.body?.isSeller ? order.buyerId : order.sellerId)));
       setUsername(() => res?.data?.data?.username);
     } // Can we add the order details to seller account from OrderRow?
     fetchUser();
   }, []);
+
+  const handleConversation = async () => {
+    try {
+
+      const res = await newRequest.post("conversations", {to: (user?.body?.isSeller ? order.buyerId : order.sellerId)});
+      console.log(res.data.data);
+      navigate(`/message/${order.sellerId+order.buyerId}`);
+  
+    } catch (err) {
+      if(err.status === 409){
+        return navigate(`/message/${order.sellerId+order.buyerId}`);
+      }
+      console.log(err);
+    } 
+  }
 
   console.log(order);
   return (
@@ -36,7 +52,7 @@ const OrderRow = ({ order }) => {
         <img
           src="imgs/message.svg"
           style={{ color: "blue", width: "20px", cursor: "pointer" }}
-          onClick={() => navigate(`/message/${order.sellerId}`)}
+          onClick={handleConversation}
         />
       </td>
     </TableRow>

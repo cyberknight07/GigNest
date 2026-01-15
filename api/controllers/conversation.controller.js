@@ -1,4 +1,5 @@
 import Conversations from "../modals/conversation.js";
+import { STATUS_CODES, STATUS_MESSAGES } from "../utils/constant.js";
 import { createError } from "../utils/createError.js";
 
 export const createConversation = async (req, res, next) => {
@@ -11,12 +12,12 @@ export const createConversation = async (req, res, next) => {
   });
   try {
     const savedConversation = await newConversation.save();
-    res.status(201).json({
-      message: "Conversation Created Successfully",
+    res.status(STATUS_CODES.CREATED).json({
+      message: STATUS_MESSAGES.CREATED,
       data: savedConversation,
     });
   } catch (e) {
-    next(createError(409, e.message));
+    next(createError(STATUS_CODES.CONFLICT, e.message));
   }
 };
 
@@ -34,8 +35,8 @@ export const updateConversation = async (req, res, next) => {
       { new: true }
     );
 
-    res.status(200).json({
-      message: "Conversation Updated Successfully",
+    res.status(STATUS_CODES.OK).json({
+      message: STATUS_MESSAGES.OK,
       data: updatedConversation,
     });
   } catch (e) {
@@ -46,8 +47,8 @@ export const updateConversation = async (req, res, next) => {
 export const getSingleConversation = async (req, res, next) => {
   try {
     const coversation = await Conversations.findOne({ id: req.params.id });
-    res.status(200).json({
-      message: "Conversation Fetched Successfully",
+    res.status(STATUS_CODES.OK).json({
+      message: STATUS_MESSAGES.OK,
       data: coversation,
     });
   } catch (e) {
@@ -60,8 +61,8 @@ export const getConversations = async (req, res, next) => {
     const coversations = await Conversations.find(
       req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }
     );
-    res.status(200).json({
-      message: "Conversations Fetched Successfully",
+    res.status(STATUS_CODES.OK).json({
+      message: STATUS_MESSAGES.OK,
       data: coversations,
     });
   } catch (e) {

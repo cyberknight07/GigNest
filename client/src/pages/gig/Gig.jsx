@@ -15,8 +15,9 @@ import {
   AboutTitle,
   AboutText,
   Image,
+  ImageContainer,
 } from "./Gig.styles";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import newRequest from "../../utils/apiRequest";
 
 const Gig = () => {
@@ -74,10 +75,13 @@ const Gig = () => {
             <Title>{gig?.gig?.title}</Title>
 
             <UserInfo>
-              <img src={gig?.user?.img || "assets/avatar.svg"} alt="User avatar" />
+              <img
+                src={gig?.user?.img || "assets/avatar.svg"}
+                alt="User avatar"
+              />
               <span>{gig?.user?.username}</span>
               <Stars>
-                <img src="/imgs/star.svg" alt="Stars" /> {/* Not WORKING */}
+                <img src="/imgs/star.svg" alt="Stars" />
                 <span>{gig?.gig?.totalStars}</span>
               </Stars>
             </UserInfo>
@@ -94,17 +98,10 @@ const Gig = () => {
                     : setIndex(index - 1);
                 }}
               />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  textAlign: "center",
-                }}
-              >
+              <ImageContainer>
                 <Image src={gig?.gig?.cover} alt={index} />
                 <div>{index + 1}</div>
-              </div>
+              </ImageContainer>
               <Image
                 button
                 src="/imgs/rightTag.svg"
@@ -151,16 +148,16 @@ const Gig = () => {
 
           <RightSection>
             <BillContainer>
-              <span>Hello</span>
-              <span>Hello</span>
-              <span>Hello</span>
-              <span>Hello</span>
-              <span>Hello</span>
-              <button
-                style={{ padding: "8px", borderRadius: "4px" }}
-                onClick={handlePurchase}
-              >
-                <a href='/orders' target="_self" className="link">Purchase</a>
+              <section>
+                <span>Purchase By</span>
+                <span>{gig?.gig?.sales}</span>
+                <span>Price </span>
+                <span>${gig?.gig?.price}</span>
+              </section>
+              <button className="button" onClick={handlePurchase}>
+                <Link to="/orders" className="link">
+                  Purchase
+                </Link>
               </button>
             </BillContainer>
           </RightSection>

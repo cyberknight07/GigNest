@@ -1,9 +1,16 @@
 import Gig from "../modals/Gig.js";
 import Order from "../modals/order.js";
+import { STATUS_CODES, STATUS_MESSAGES } from "../utils/constant.js";
 
 export const createOrder = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.gigId);
+
+    if (!gig)
+      return res
+        .status(STATUS_CODES.NO_CONTENT)
+        .json({ message: STATUS_MESSAGES.NO_CONTENT });
+
     const newOrder = new Order({
       gigId: gig._id,
       img: gig.cover,
@@ -15,7 +22,7 @@ export const createOrder = async (req, res, next) => {
     });
 
     await newOrder.save();
-    res.status(201).json({ message: "Order Created Successfull" });
+    res.status(STATUS_CODES.CREATED).json({ message: STATUS_MESSAGES.CREATED });
   } catch (e) {
     next(e);
   }
@@ -27,10 +34,9 @@ export const getAllOrders = async (req, res, next) => {
       ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
     }).sort({ createAt: -1 });
 
-    res.status(200).json({
-      message: "Order fetched successfully",
-      data: orders,
-    });
+    res
+      .status(STATUS_CODES.OK)
+      .json({ message: STATUS_MESSAGES.OK, data: orders });
   } catch (e) {
     next(e);
   }

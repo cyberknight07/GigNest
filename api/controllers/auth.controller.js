@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import User from "../modals/User.js";
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/createError.js";
+import { STATUS_CODES, STATUS_MESSAGES } from "../utils/constant.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -12,7 +13,7 @@ export const register = async (req, res, next) => {
     });
 
     await newUser.save();
-    res.status(201).json({ message: "New User Is Created." });
+    res.status(STATUS_CODES.CREATED).json({ message: STATUS_MESSAGES.CREATED });
   } catch (e) {
     next(createError(e.status, e.message));
   }
@@ -21,10 +22,16 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (!user) return next(createError(404, "User not found."));
+    if (!user)
+      return next(
+        createError(STATUS_CODES.NOT_FOUND, STATUS_MESSAGES.NOT_FOUND)
+      );
 
     const isCorrect = bcrypt.compareSync(req.body.password, user.password);
-    if (!isCorrect) return next(createError(404, "Wrong Password"));
+    if (!isCorrect)
+      return next(
+        createError(STATUS_CODES.WRONG_PASSWORD, STATUS_MESSAGES.WRONG_PASSWORD)
+      );
 
     const token = jwt.sign(
       {
@@ -34,10 +41,13 @@ export const login = async (req, res, next) => {
       process.env.JWT_KEY
     );
     const { password, ...info } = user._doc;
-    res.cookie("accessToken", token, { httpOnly: true }).status(200).json({
-      message: "User Logged In Successfully",
-      body: info,
-    });
+    res
+      .cookie("accessToken", token, { httpOnly: true })
+      .status(STATUS_CODES.OK)
+      .json({
+        message: STATUS_MESSAGES.OK,
+        body: info,
+      });
   } catch (error) {
     next(error);
   }
@@ -49,6 +59,6 @@ export const logout = (req, res) => {
       sameSite: "none",
       secure: process.env.SECURE_COOKIES,
     })
-    .status(200)
-    .json({ message: "It Works on api/user/test" });
+    .status(STATUS_CODES.OK)
+    .json({ message: STATUS_MESSAGES.OK });
 };

@@ -10,14 +10,14 @@ import {
   Popular,
   Right,
 } from "./Featured.styles";
+import { useNavigate } from "react-router-dom";
 
 const Featured = () => {
-
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     setSearch(e.target.value);
-  }
-  
+  };
 
   return (
     <FeaturedWrapper>
@@ -29,15 +29,30 @@ const Featured = () => {
 
           <Search>
             <SearchText>
-              <a href={`/gigs?search=${search}`} target="_self"><img src="imgs/search.svg" alt="search icon" /></a>
-              <input type="text" placeholder="Search the gigs" value={search} onChange={handleSearch} />
+              <img src="imgs/search.svg" alt="search icon" />
+              <input
+                type="text"
+                placeholder="Search the gigs"
+                value={search}
+                onChange={handleSearch}
+              />
             </SearchText>
-            <SearchButton>Search</SearchButton>
+            {console.log(search.length)}
+            <SearchButton
+              disabled={() => {
+                search.length === 0 ? true : false;
+              }}
+              onClick={() => {
+                navigate(`/gigs?search=${search}`);
+              }}
+            >
+              Search
+            </SearchButton>
           </Search>
 
           <Popular>
             <span>Popular:</span>
-            <button >Hero</button>
+            <button>Hero</button>
             <button>Villain</button>
             <button>Rowdy</button>
           </Popular>

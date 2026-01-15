@@ -1,5 +1,6 @@
 import { createError } from "../utils/createError.js";
 import Gig from "../modals/Gig.js";
+import { STATUS_CODES, STATUS_MESSAGES } from "../utils/constant.js";
 
 export const getGigs = async (req, res, next) => {
   const q = req.query;
@@ -21,21 +22,30 @@ export const getGigs = async (req, res, next) => {
   try {
     const gigs = await Gig.find(filters).sort({ [q.sort]: -1 }); // Getting Problem of Multiple filter, so i need to use array rather than object.
 
-    if (!gigs) return next(createError(404, "Gigs are empty. Create new one."));
-    res.status(200).json({ message: "Gigs Fetched Successfully", data: gigs });
+    if (!gigs)
+      return next(
+        createError(STATUS_CODES.NOT_FOUND, STATUS_MESSAGES.NOT_FOUND)
+      );
+    res
+      .status(STATUS_CODES.OK)
+      .json({ message: STATUS_MESSAGES.OK, data: gigs });
   } catch (e) {
     next(e);
   }
 };
 
 export const getUserGigs = async (req, res, next) => {
-  try{
+  try {
     console.log(req.userId);
-    const gigs = await Gig.find({userId: req.userId});
+    const gigs = await Gig.find({ userId: req.userId });
     console.log(gigs);
-    if(!gigs) return next(createError(404, "No Gigs Available. Create New"));
-    return res.status(200).json({message: "Gigs Fetched Successfully", data: gigs});
-
+    if (!gigs)
+      return next(
+        createError(STATUS_CODES.NOT_FOUND, STATUS_MESSAGES.NOT_FOUND)
+      );
+    return res
+      .status(STATUS_CODES.OK)
+      .json({ message: STATUS_MESSAGES.OK, data: gigs });
   } catch (e) {
     next(e);
   }
@@ -45,16 +55,23 @@ export const getGig = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.id);
 
-    if (!gig) return next(createError(404, "Gig not found"));
+    if (!gig)
+      return next(
+        createError(STATUS_CODES.NOT_FOUND, STATUS_MESSAGES.NOT_FOUND)
+      );
 
-    res.status(200).json({ message: "Gig Fetched Successfully", data: gig });
+    res
+      .status(STATUS_CODES.OK)
+      .json({ message: STATUS_MESSAGES.OK, data: gig });
   } catch (err) {
     next(err);
   }
 };
 export const createGig = async (req, res, next) => {
   if (!req.isSeller)
-    return next(createError(403, "Only seller can create gigs."));
+    return next(
+      createError(STATUS_CODES.UNAUTHORIZED, STATUS_MESSAGES.UNAUTHORIZED)
+    );
 
   const newGig = new Gig({
     userId: req.userId,
@@ -64,8 +81,8 @@ export const createGig = async (req, res, next) => {
   try {
     const savedGig = await newGig.save();
     res
-      .status(201)
-      .json({ message: "Gig Created Successfully", data: savedGig });
+      .status(STATUS_CODES.CREATED)
+      .json({ message: STATUS_MESSAGES.CREATED, data: savedGig });
   } catch (e) {
     next(e);
   }
@@ -77,15 +94,12 @@ export const deleteGig = async (req, res, next) => {
 
     if (gig.userId != req.userId) {
       return next(
-        createError(
-          403,
-          "You are not authorized to delete this gig. DELETE GIG"
-        )
+        createError(STATUS_CODES.UNAUTHORIZED, STATUS_MESSAGES.UNAUTHORIZED)
       );
     }
 
     await Gig.findByIdAndDelete(req.params.id);
-    res.status(201).json({ message: "Gig has been deleted" });
+    res.status(STATUS_CODES.CREATED).json({ message: STATUS_MESSAGES.CREATED });
   } catch (e) {
     next(e);
   }

@@ -1,11 +1,12 @@
 import Conversations from "../modals/conversation.js";
 import Messages from "../modals/messages.js";
+import { STATUS_CODES,STATUS_MESSAGES } from "../utils/constant.js";
 
 export const createMessage = async (req, res, next) => {
   const newMessage = new Messages({
     userId: req.userId,
     message: req.body.message,
-    conversationId:req.body.conversationId,
+    conversationId: req.body.conversationId,
   });
 
   try {
@@ -22,8 +23,8 @@ export const createMessage = async (req, res, next) => {
       { new: true }
     );
     res
-      .status(201)
-      .json({ message: "Message Sent successfully", data: savedMessage });
+      .status(STATUS_CODES.CREATED)
+      .json({ message: STATUS_MESSAGES.CREATED, data: savedMessage });
   } catch (e) {
     next(e);
   }
@@ -34,7 +35,9 @@ export const getMessages = async (req, res, next) => {
     const messages = await Messages.find({
       conversationId: req.params.conversationId,
     });
-    res.status(200).json({message: "Messages fetched Successfully", data: messages});
+    res
+      .status(STATUS_CODES.OK)
+      .json({ message: STATUS_MESSAGES.OK, data: messages });
   } catch (e) {
     next(e);
   }

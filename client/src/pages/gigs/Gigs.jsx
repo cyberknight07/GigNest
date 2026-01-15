@@ -122,7 +122,7 @@ const Gigs = () => {
 
         <GigList>
           {isLoading ? (
-            <div style={{ width:"full", display: "flex", justifyContent: "center", alignItems: "center" }}><Oval
+            <Oval
               height={80}
               width={80}
               color="#4fa94d"
@@ -131,10 +131,10 @@ const Gigs = () => {
               secondaryColor="#4fa94d"
               strokeWidth={2}
               strokeWidthSecondary={2}
-            /></div>
-          ) : error?.message ? ( // Can not able to show error message
+            />
+          ) : error?.message ? ( 
             <div>{error?.message}</div>
-          ) : !data ? ( // Can not able to show this message when data is empty.
+          ) : !data ? ( 
             <div>Nothing to show here.</div>
           ) : (
             data.map((item, index) => <GigCard key={index} item={item} />)

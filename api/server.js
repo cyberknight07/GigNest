@@ -10,6 +10,7 @@ import messageRouter from "./routes/message.route.js";
 import conversationRouter from "./routes/conversation.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { STATUS_CODES, STATUS_MESSAGES } from "./utils/constant.js";
 
 const app = express();
 dotenv.config();
@@ -28,14 +29,14 @@ app.use("/api/messages", messageRouter);
 
 // Error Middleware
 app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errorMessage = err.message || "Something went wrong.";
+  const errorStatus = err.status || STATUS_CODES.INTERNAL_SERVER_ERROR;
+  const errorMessage = err.message || STATUS_MESSAGES.INTERNAL_SERVER_ERROR;
 
   res.status(errorStatus).json({ error: errorMessage });
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "It is working" });
+  res.status(STATUS_CODES.OK).json({ message: STATUS_MESSAGES.OK });
 });
 
 // Listening on port 3000

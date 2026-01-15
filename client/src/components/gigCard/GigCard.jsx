@@ -15,7 +15,6 @@ import newRequest from "../../utils/apiRequest.js";
 
 const GigCard = ({ item }) => {
   const [seller, setSeller] = useState({}); 
-  // Update - ADD headers for cookie which is called in verifyToken middleware.
   useEffect(() => {
     const fetchSeller = async () => {
       await newRequest
@@ -32,7 +31,7 @@ const GigCard = ({ item }) => {
   }, []);
 
   return (
-    <Link to={`gig/${item._id}`} className="link">
+    <Link to={`${item._id}`} className="link">
       <GigCardWrapper>
         <GigImage src={item?.cover || 'imgs/gigimage.svg'} />
         <InfoDiv>

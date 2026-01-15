@@ -1,9 +1,11 @@
 import Gig from "../modals/Gig.js";
 import Reviews from "../modals/review.js";
+import { STATUS_CODES, STATUS_MESSAGES } from "../utils/constant.js";
 import { createError } from "../utils/createError.js";
 
 export const createReview = async (req, res, next) => {
-  if (req.isSeller) return next(createError(403, "Seller can not review."));
+  if (req.isSeller)
+    return next(createError(STATUS_CODES.FORBIDDEN, STATUS_MESSAGES.FORBIDDEN));
 
   const newReview = new Reviews({
     userId: req.userId,
@@ -18,7 +20,9 @@ export const createReview = async (req, res, next) => {
       userId: req.userId,
     });
     if (review)
-      return next(createError(403, "We have already created a review."));
+      return next(
+        createError(STATUS_CODES.FORBIDDEN, STATUS_MESSAGES.FORBIDDEN)
+      );
 
     const savedReview = await newReview.save();
 
@@ -28,8 +32,8 @@ export const createReview = async (req, res, next) => {
     });
 
     res
-      .status(201)
-      .json({ message: "Review created successfully", data: savedReview });
+      .status(STATUS_CODES.CREATED)
+      .json({ message: STATUS_MESSAGES.CREATED, data: savedReview });
   } catch (err) {
     next(err);
   }
@@ -40,8 +44,8 @@ export const getReviews = async (req, res, next) => {
     const reviews = await Reviews.find({ gigId: req.params.gigId });
     if (!reviews) return next(createError(403, "No review found."));
     res
-      .status(200)
-      .json({ message: "Reviews fetched successfully", data: reviews });
+      .status(STATUS_CODES.OK)
+      .json({ message: STATUS_MESSAGES.OK, data: reviews });
   } catch (err) {
     next(err);
   }

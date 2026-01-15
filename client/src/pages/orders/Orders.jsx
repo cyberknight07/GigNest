@@ -17,15 +17,7 @@ import OrderRow from "../../components/orderRow/OrderRow.jsx";
 const Orders = () => {
   const [orders, setOrders] = useState(null);
   const [loading, setLoading] = useState(false);
-  let user = JSON.parse(localStorage.getItem("currentUser")); // isko seedhe api k response se aana chahiye either using middleware with provide user as request.
-  // const handleConversation = async (toAddress) => {
-  //   try {
-  //     await newRequest.post("conversations", toAddress);
-  //     console.log("Conversation created. Add a Message to chat.");
-  //   } catch (error) {
-  //     console.log("Coversation Api - Orders -> " + error);
-  //   }
-  // };
+  let user = JSON.parse(localStorage.getItem("currentUser")); 
 
   useEffect(() => {
     try {

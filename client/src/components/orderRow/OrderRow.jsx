@@ -14,7 +14,7 @@ const OrderRow = ({ order }) => {
     async function fetchUser () {
       const res = (await newRequest.get("users/single/" + (user?.body?.isSeller ? order.buyerId : order.sellerId)));
       setUsername(() => res?.data?.data?.username);
-    } // Can we add the order details to seller account from OrderRow?
+    } 
     fetchUser();
   }, []);
 

@@ -74,7 +74,6 @@ const Navbar = () => {
         </Logo>
 
         <Actions>
-          {/* Added 'to' props for all Links */}
           <Link to="/business" className="link">
             <ActionButton>Business</ActionButton>
           </Link>

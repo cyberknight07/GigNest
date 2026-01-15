@@ -73,12 +73,20 @@ export const Scrollbar = styled.div`
 `;
 
 export const Image = styled.img`
+  transform: ${({ left }) => (left ? "rotate(180deg)" : "Opx")};
+  cursor: ${({ button }) => (button ? "pointer" : "auto")};
+  width: ${({ button }) => (button ? "40px" : "360px")};
+  height: ${({ button }) => {
+    button ? "40px" : "360px";
+  }};
+  object-fit: cover;
+`;
 
-    transform: ${({left}) => (left ? "rotate(180deg)" : "Opx")}; ;
-    cursor: ${({button}) => (button ? "pointer" : "auto")};
-    width: ${({button}) => (button ? "40px" : "360px")};
-    height: ${({button}) => {button ? "40px": "360px"}};
-    object-fit: cover;
+export const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 `;
 
 export const AboutTitle = styled.span`
@@ -104,4 +112,12 @@ export const BillContainer = styled.div`
   gap: 20px;
   border: 1px solid black;
   padding: 20px;
+
+  section{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: auto auto;
+   
+  }
+ 
 `;
